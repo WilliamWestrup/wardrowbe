@@ -1,0 +1,101 @@
+{
+  "add": "Add look",
+  "analysis": {
+    "error": "The pieces in this photo could not be identified automatically. Add them by hand, or try again.",
+    "retry": "Analyze again",
+    "retryError": "Could not start the analysis",
+    "running": "Finding the pieces in this photo…"
+  },
+  "detail": {
+    "back": "Back to inspiration",
+    "delete": "Delete look",
+    "deleteConfirm": "Delete this look and its photo?",
+    "deleteError": "Could not delete the look",
+    "deleted": "Look deleted",
+    "editDetails": "Edit title and link",
+    "notFound": "This look was not found.",
+    "photoAlt": "Inspiration look",
+    "photoError": "Could not replace the photo",
+    "photoReplaced": "Photo replaced",
+    "replaceConfirm": "Replacing the photo removes the pieces listed for it. Continue?",
+    "replacePhoto": "Replace photo",
+    "save": "Save",
+    "saveError": "Could not save the change"
+  },
+  "empty": "No inspiration saved yet",
+  "emptyHint": "Save photos of outfits you like, vote them, and link their pieces to your wardrobe.",
+  "filters": {
+    "all": "All",
+    "allTags": "All situations",
+    "like": "Liked",
+    "love": "Loved",
+    "tagLabel": "Filter by situation"
+  },
+  "garments": {
+    "add": "Add piece",
+    "addError": "Could not add the piece",
+    "anyColor": "Any color",
+    "cancel": "Cancel",
+    "colorLabel": "Color",
+    "descriptionLabel": "Description",
+    "descriptionPlaceholder": "For example, wide linen trousers",
+    "empty": "No pieces listed yet.",
+    "rematch": "Match with my wardrobe",
+    "rematchConfirm": "Replace the current links with fresh matches from your wardrobe?",
+    "rematchError": "Could not match the look",
+    "remove": "Remove piece",
+    "removeError": "Could not remove the piece",
+    "save": "Add",
+    "title": "Pieces in this look",
+    "typeLabel": "Type",
+    "typePlaceholder": "Choose a type"
+  },
+  "match": {
+    "allTypes": "All types",
+    "change": "Change",
+    "choose": "Choose item",
+    "clear": "Remove link",
+    "error": "Could not update the link",
+    "linked": "From your wardrobe",
+    "none": "Nothing from your wardrobe linked",
+    "onlyType": "Only {type}",
+    "pickerDescription": "Pick the piece you would wear in its place.",
+    "pickerEmpty": "No items found",
+    "pickerTitle": "Choose a wardrobe item",
+    "suggestions": "Other suggestions"
+  },
+  "noMatches": "No looks match these filters",
+  "notes": {
+    "placeholder": "What do you like about it?",
+    "save": "Save notes",
+    "saved": "Notes saved",
+    "title": "Notes"
+  },
+  "subtitle": "Looks you saved, and how to recreate them from your wardrobe",
+  "tags": {
+    "hint": "Situations you would wear this look in. Tap to toggle.",
+    "title": "Works for"
+  },
+  "title": "Inspiration",
+  "totalCount": "{count} looks",
+  "untitled": "Untitled look",
+  "upload": {
+    "cancel": "Cancel",
+    "choose": "Choose a photo",
+    "description": "A photo of an outfit you like. Location data is removed when the photo is saved.",
+    "error": "Could not save the look",
+    "photo": "Photo",
+    "save": "Save look",
+    "sourceLabel": "Source link",
+    "sourcePlaceholder": "Where you found it (optional)",
+    "success": "Look saved",
+    "title": "Save an inspiration look",
+    "titleLabel": "Title",
+    "titlePlaceholder": "For example, linen summer look"
+  },
+  "vote": {
+    "label": "Your vote",
+    "like": "Like it",
+    "love": "Love it"
+  }
+}

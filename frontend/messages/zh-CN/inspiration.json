@@ -1,0 +1,101 @@
+{
+  "add": "添加造型",
+  "analysis": {
+    "error": "无法自动识别这张照片中的单品。请手动添加，或重试。",
+    "retry": "重新分析",
+    "retryError": "无法开始分析",
+    "running": "正在识别照片中的单品…"
+  },
+  "detail": {
+    "back": "返回灵感",
+    "delete": "删除造型",
+    "deleteConfirm": "删除这个造型及其照片？",
+    "deleteError": "无法删除造型",
+    "deleted": "造型已删除",
+    "editDetails": "编辑标题和链接",
+    "notFound": "找不到这个造型。",
+    "photoAlt": "灵感造型",
+    "photoError": "无法更换照片",
+    "photoReplaced": "照片已更换",
+    "replaceConfirm": "更换照片会移除为它列出的单品。继续吗？",
+    "replacePhoto": "更换照片",
+    "save": "保存",
+    "saveError": "无法保存更改"
+  },
+  "empty": "还没有收藏灵感",
+  "emptyHint": "保存你喜欢的穿搭照片，为它们投票，并把其中的单品关联到你的衣橱。",
+  "filters": {
+    "all": "全部",
+    "allTags": "所有场合",
+    "like": "喜欢",
+    "love": "超爱",
+    "tagLabel": "按场合筛选"
+  },
+  "garments": {
+    "add": "添加单品",
+    "addError": "无法添加单品",
+    "anyColor": "任意颜色",
+    "cancel": "取消",
+    "colorLabel": "颜色",
+    "descriptionLabel": "描述",
+    "descriptionPlaceholder": "例如：亚麻阔腿裤",
+    "empty": "还没有列出单品。",
+    "rematch": "与我的衣橱匹配",
+    "rematchConfirm": "用衣橱中的新匹配替换当前关联？",
+    "rematchError": "无法匹配造型",
+    "remove": "移除单品",
+    "removeError": "无法移除单品",
+    "save": "添加",
+    "title": "造型中的单品",
+    "typeLabel": "类型",
+    "typePlaceholder": "选择类型"
+  },
+  "match": {
+    "allTypes": "所有类型",
+    "change": "更换",
+    "choose": "选择单品",
+    "clear": "取消关联",
+    "error": "无法更新关联",
+    "linked": "来自你的衣橱",
+    "none": "未关联衣橱单品",
+    "onlyType": "仅{type}",
+    "pickerDescription": "选择你会用来替代它的单品。",
+    "pickerEmpty": "未找到单品",
+    "pickerTitle": "选择衣橱单品",
+    "suggestions": "其他推荐"
+  },
+  "noMatches": "没有符合筛选条件的造型",
+  "notes": {
+    "placeholder": "你喜欢它哪一点？",
+    "save": "保存备注",
+    "saved": "备注已保存",
+    "title": "备注"
+  },
+  "subtitle": "收藏的造型，以及如何用你的衣橱重现它们",
+  "tags": {
+    "hint": "你会穿这个造型的场合。点按即可切换。",
+    "title": "适合场合"
+  },
+  "title": "灵感",
+  "totalCount": "共{count}个造型",
+  "untitled": "未命名造型",
+  "upload": {
+    "cancel": "取消",
+    "choose": "选择照片",
+    "description": "一张你喜欢的穿搭照片。保存时会移除位置信息。",
+    "error": "无法保存造型",
+    "photo": "照片",
+    "save": "保存造型",
+    "sourceLabel": "来源链接",
+    "sourcePlaceholder": "在哪里看到的（可选）",
+    "success": "造型已保存",
+    "title": "保存灵感造型",
+    "titleLabel": "标题",
+    "titlePlaceholder": "例如：亚麻夏日造型"
+  },
+  "vote": {
+    "label": "你的评价",
+    "like": "喜欢",
+    "love": "超爱"
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "add": "Aggiungi look",
+  "analysis": {
+    "error": "Non è stato possibile identificare automaticamente i capi in questa foto. Aggiungili a mano o riprova.",
+    "retry": "Analizza di nuovo",
+    "retryError": "Impossibile avviare l'analisi",
+    "running": "Ricerca dei capi in questa foto…"
+  },
+  "detail": {
+    "back": "Torna all'ispirazione",
+    "delete": "Elimina look",
+    "deleteConfirm": "Eliminare questo look e la sua foto?",
+    "deleteError": "Impossibile eliminare il look",
+    "deleted": "Look eliminato",
+    "editDetails": "Modifica titolo e link",
+    "notFound": "Questo look non è stato trovato.",
+    "photoAlt": "Look di ispirazione",
+    "photoError": "Impossibile sostituire la foto",
+    "photoReplaced": "Foto sostituita",
+    "replaceConfirm": "Sostituendo la foto vengono rimossi i capi elencati per essa. Continuare?",
+    "replacePhoto": "Sostituisci foto",
+    "save": "Salva",
+    "saveError": "Impossibile salvare la modifica"
+  },
+  "empty": "Nessuna ispirazione salvata",
+  "emptyHint": "Salva foto di outfit che ti piacciono, votale e collega i loro capi al tuo guardaroba.",
+  "filters": {
+    "all": "Tutti",
+    "allTags": "Tutte le situazioni",
+    "like": "Piaciuti",
+    "love": "Adorati",
+    "tagLabel": "Filtra per situazione"
+  },
+  "garments": {
+    "add": "Aggiungi capo",
+    "addError": "Impossibile aggiungere il capo",
+    "anyColor": "Qualsiasi colore",
+    "cancel": "Annulla",
+    "colorLabel": "Colore",
+    "descriptionLabel": "Descrizione",
+    "descriptionPlaceholder": "Per esempio, pantaloni larghi in lino",
+    "empty": "Nessun capo elencato.",
+    "rematch": "Abbina al mio guardaroba",
+    "rematchConfirm": "Sostituire i collegamenti attuali con nuovi abbinamenti dal tuo guardaroba?",
+    "rematchError": "Impossibile abbinare il look",
+    "remove": "Rimuovi capo",
+    "removeError": "Impossibile rimuovere il capo",
+    "save": "Aggiungi",
+    "title": "Capi di questo look",
+    "typeLabel": "Tipo",
+    "typePlaceholder": "Scegli un tipo"
+  },
+  "match": {
+    "allTypes": "Tutti i tipi",
+    "change": "Cambia",
+    "choose": "Scegli capo",
+    "clear": "Rimuovi collegamento",
+    "error": "Impossibile aggiornare il collegamento",
+    "linked": "Dal tuo guardaroba",
+    "none": "Nessun capo del guardaroba collegato",
+    "onlyType": "Solo {type}",
+    "pickerDescription": "Scegli il capo che indosseresti al suo posto.",
+    "pickerEmpty": "Nessun capo trovato",
+    "pickerTitle": "Scegli un capo del guardaroba",
+    "suggestions": "Altri suggerimenti"
+  },
+  "noMatches": "Nessun look corrisponde a questi filtri",
+  "notes": {
+    "placeholder": "Cosa ti piace di questo look?",
+    "save": "Salva note",
+    "saved": "Note salvate",
+    "title": "Note"
+  },
+  "subtitle": "I look salvati e come ricrearli con il tuo guardaroba",
+  "tags": {
+    "hint": "Le situazioni in cui indosseresti questo look. Tocca per attivare o disattivare.",
+    "title": "Adatto per"
+  },
+  "title": "Ispirazione",
+  "totalCount": "{count} look",
+  "untitled": "Look senza titolo",
+  "upload": {
+    "cancel": "Annulla",
+    "choose": "Scegli una foto",
+    "description": "Una foto di un outfit che ti piace. I dati sulla posizione vengono rimossi al salvataggio.",
+    "error": "Impossibile salvare il look",
+    "photo": "Foto",
+    "save": "Salva look",
+    "sourceLabel": "Link alla fonte",
+    "sourcePlaceholder": "Dove l'hai trovato (facoltativo)",
+    "success": "Look salvato",
+    "title": "Salva un look di ispirazione",
+    "titleLabel": "Titolo",
+    "titlePlaceholder": "Per esempio, look estivo in lino"
+  },
+  "vote": {
+    "label": "Il tuo voto",
+    "like": "Mi piace",
+    "love": "Lo adoro"
+  }
+}

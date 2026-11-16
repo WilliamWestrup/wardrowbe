@@ -1,0 +1,101 @@
+{
+  "add": "룩 추가",
+  "analysis": {
+    "error": "이 사진의 아이템을 자동으로 찾지 못했습니다. 직접 추가하거나 다시 시도하세요.",
+    "retry": "다시 분석",
+    "retryError": "분석을 시작하지 못했습니다",
+    "running": "사진 속 아이템을 찾는 중…"
+  },
+  "detail": {
+    "back": "인스피레이션으로 돌아가기",
+    "delete": "룩 삭제",
+    "deleteConfirm": "이 룩과 사진을 삭제할까요?",
+    "deleteError": "룩을 삭제하지 못했습니다",
+    "deleted": "룩을 삭제했습니다",
+    "editDetails": "제목과 링크 편집",
+    "notFound": "이 룩을 찾을 수 없습니다.",
+    "photoAlt": "인스피레이션 룩",
+    "photoError": "사진을 교체하지 못했습니다",
+    "photoReplaced": "사진을 교체했습니다",
+    "replaceConfirm": "사진을 교체하면 이 사진에 등록한 아이템이 삭제됩니다. 계속할까요?",
+    "replacePhoto": "사진 교체",
+    "save": "저장",
+    "saveError": "변경 사항을 저장하지 못했습니다"
+  },
+  "empty": "저장한 인스피레이션이 아직 없습니다",
+  "emptyHint": "마음에 드는 코디 사진을 저장하고 평가한 뒤, 아이템을 옷장과 연결하세요.",
+  "filters": {
+    "all": "전체",
+    "allTags": "모든 상황",
+    "like": "좋아요",
+    "love": "최애",
+    "tagLabel": "상황별 필터"
+  },
+  "garments": {
+    "add": "아이템 추가",
+    "addError": "아이템을 추가하지 못했습니다",
+    "anyColor": "색상 무관",
+    "cancel": "취소",
+    "colorLabel": "색상",
+    "descriptionLabel": "설명",
+    "descriptionPlaceholder": "예: 와이드 린넨 바지",
+    "empty": "아직 등록된 아이템이 없습니다.",
+    "rematch": "내 옷장과 매칭",
+    "rematchConfirm": "현재 연결을 옷장의 새 매칭으로 바꿀까요?",
+    "rematchError": "룩을 매칭하지 못했습니다",
+    "remove": "아이템 삭제",
+    "removeError": "아이템을 삭제하지 못했습니다",
+    "save": "추가",
+    "title": "이 룩의 아이템",
+    "typeLabel": "종류",
+    "typePlaceholder": "종류 선택"
+  },
+  "match": {
+    "allTypes": "모든 종류",
+    "change": "변경",
+    "choose": "아이템 선택",
+    "clear": "연결 해제",
+    "error": "연결을 업데이트하지 못했습니다",
+    "linked": "내 옷장에서",
+    "none": "연결된 옷장 아이템 없음",
+    "onlyType": "{type}만",
+    "pickerDescription": "대신 입을 아이템을 고르세요.",
+    "pickerEmpty": "아이템이 없습니다",
+    "pickerTitle": "옷장 아이템 선택",
+    "suggestions": "다른 추천"
+  },
+  "noMatches": "필터에 맞는 룩이 없습니다",
+  "notes": {
+    "placeholder": "어떤 점이 마음에 드나요?",
+    "save": "메모 저장",
+    "saved": "메모를 저장했습니다",
+    "title": "메모"
+  },
+  "subtitle": "저장한 룩과 내 옷장으로 다시 연출하는 방법",
+  "tags": {
+    "hint": "이 룩을 입고 싶은 상황입니다. 탭하여 전환하세요.",
+    "title": "어울리는 상황"
+  },
+  "title": "인스피레이션",
+  "totalCount": "룩 {count}개",
+  "untitled": "제목 없는 룩",
+  "upload": {
+    "cancel": "취소",
+    "choose": "사진 선택",
+    "description": "마음에 드는 코디 사진입니다. 저장할 때 위치 정보는 삭제됩니다.",
+    "error": "룩을 저장하지 못했습니다",
+    "photo": "사진",
+    "save": "룩 저장",
+    "sourceLabel": "출처 링크",
+    "sourcePlaceholder": "찾은 곳 (선택)",
+    "success": "룩을 저장했습니다",
+    "title": "인스피레이션 룩 저장",
+    "titleLabel": "제목",
+    "titlePlaceholder": "예: 린넨 여름 룩"
+  },
+  "vote": {
+    "label": "내 평가",
+    "like": "좋아요",
+    "love": "최애예요"
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "add": "新增造型",
+  "analysis": {
+    "error": "無法自動辨識這張照片中的單品。請手動新增，或再試一次。",
+    "retry": "重新分析",
+    "retryError": "無法開始分析",
+    "running": "正在辨識照片中的單品…"
+  },
+  "detail": {
+    "back": "返回靈感",
+    "delete": "刪除造型",
+    "deleteConfirm": "刪除這個造型及其照片？",
+    "deleteError": "無法刪除造型",
+    "deleted": "造型已刪除",
+    "editDetails": "編輯標題和連結",
+    "notFound": "找不到這個造型。",
+    "photoAlt": "靈感造型",
+    "photoError": "無法更換照片",
+    "photoReplaced": "照片已更換",
+    "replaceConfirm": "更換照片會移除為它列出的單品。要繼續嗎？",
+    "replacePhoto": "更換照片",
+    "save": "儲存",
+    "saveError": "無法儲存變更"
+  },
+  "empty": "還沒有收藏靈感",
+  "emptyHint": "儲存你喜歡的穿搭照片，為它們投票，並把其中的單品連結到你的衣櫥。",
+  "filters": {
+    "all": "全部",
+    "allTags": "所有場合",
+    "like": "喜歡",
+    "love": "超愛",
+    "tagLabel": "依場合篩選"
+  },
+  "garments": {
+    "add": "新增單品",
+    "addError": "無法新增單品",
+    "anyColor": "任何顏色",
+    "cancel": "取消",
+    "colorLabel": "顏色",
+    "descriptionLabel": "描述",
+    "descriptionPlaceholder": "例如：亞麻寬褲",
+    "empty": "還沒有列出單品。",
+    "rematch": "與我的衣櫥配對",
+    "rematchConfirm": "用衣櫥中的新配對取代目前的連結？",
+    "rematchError": "無法配對造型",
+    "remove": "移除單品",
+    "removeError": "無法移除單品",
+    "save": "新增",
+    "title": "造型中的單品",
+    "typeLabel": "類型",
+    "typePlaceholder": "選擇類型"
+  },
+  "match": {
+    "allTypes": "所有類型",
+    "change": "更換",
+    "choose": "選擇單品",
+    "clear": "取消連結",
+    "error": "無法更新連結",
+    "linked": "來自你的衣櫥",
+    "none": "未連結衣櫥單品",
+    "onlyType": "僅{type}",
+    "pickerDescription": "選擇你會用來取代它的單品。",
+    "pickerEmpty": "找不到單品",
+    "pickerTitle": "選擇衣櫥單品",
+    "suggestions": "其他推薦"
+  },
+  "noMatches": "沒有符合篩選條件的造型",
+  "notes": {
+    "placeholder": "你喜歡它哪一點？",
+    "save": "儲存備註",
+    "saved": "備註已儲存",
+    "title": "備註"
+  },
+  "subtitle": "收藏的造型，以及如何用你的衣櫥重現它們",
+  "tags": {
+    "hint": "你會穿這個造型的場合。點按即可切換。",
+    "title": "適合場合"
+  },
+  "title": "靈感",
+  "totalCount": "共{count}個造型",
+  "untitled": "未命名造型",
+  "upload": {
+    "cancel": "取消",
+    "choose": "選擇照片",
+    "description": "一張你喜歡的穿搭照片。儲存時會移除位置資訊。",
+    "error": "無法儲存造型",
+    "photo": "照片",
+    "save": "儲存造型",
+    "sourceLabel": "來源連結",
+    "sourcePlaceholder": "在哪裡看到的（選填）",
+    "success": "造型已儲存",
+    "title": "儲存靈感造型",
+    "titleLabel": "標題",
+    "titlePlaceholder": "例如：亞麻夏日造型"
+  },
+  "vote": {
+    "label": "你的評價",
+    "like": "喜歡",
+    "love": "超愛"
+  }
+}

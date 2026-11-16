@@ -1,0 +1,101 @@
+{
+  "add": "Ajouter un look",
+  "analysis": {
+    "error": "Les pièces de cette photo n'ont pas pu être identifiées automatiquement. Ajoutez-les à la main ou réessayez.",
+    "retry": "Analyser à nouveau",
+    "retryError": "Impossible de lancer l'analyse",
+    "running": "Recherche des pièces sur cette photo…"
+  },
+  "detail": {
+    "back": "Retour à l'inspiration",
+    "delete": "Supprimer le look",
+    "deleteConfirm": "Supprimer ce look et sa photo ?",
+    "deleteError": "Impossible de supprimer le look",
+    "deleted": "Look supprimé",
+    "editDetails": "Modifier le titre et le lien",
+    "notFound": "Ce look est introuvable.",
+    "photoAlt": "Look d'inspiration",
+    "photoError": "Impossible de remplacer la photo",
+    "photoReplaced": "Photo remplacée",
+    "replaceConfirm": "Remplacer la photo supprime les pièces listées pour elle. Continuer ?",
+    "replacePhoto": "Remplacer la photo",
+    "save": "Enregistrer",
+    "saveError": "Impossible d'enregistrer la modification"
+  },
+  "empty": "Aucune inspiration enregistrée",
+  "emptyHint": "Enregistrez des photos de tenues qui vous plaisent, notez-les et reliez leurs pièces à votre garde-robe.",
+  "filters": {
+    "all": "Tous",
+    "allTags": "Toutes les situations",
+    "like": "Aimés",
+    "love": "Adorés",
+    "tagLabel": "Filtrer par situation"
+  },
+  "garments": {
+    "add": "Ajouter une pièce",
+    "addError": "Impossible d'ajouter la pièce",
+    "anyColor": "Toute couleur",
+    "cancel": "Annuler",
+    "colorLabel": "Couleur",
+    "descriptionLabel": "Description",
+    "descriptionPlaceholder": "Par exemple, pantalon large en lin",
+    "empty": "Aucune pièce listée pour l'instant.",
+    "rematch": "Associer à ma garde-robe",
+    "rematchConfirm": "Remplacer les liens actuels par de nouvelles correspondances de votre garde-robe ?",
+    "rematchError": "Impossible d'associer le look",
+    "remove": "Retirer la pièce",
+    "removeError": "Impossible de retirer la pièce",
+    "save": "Ajouter",
+    "title": "Pièces de ce look",
+    "typeLabel": "Type",
+    "typePlaceholder": "Choisir un type"
+  },
+  "match": {
+    "allTypes": "Tous les types",
+    "change": "Changer",
+    "choose": "Choisir une pièce",
+    "clear": "Retirer le lien",
+    "error": "Impossible de mettre à jour le lien",
+    "linked": "De votre garde-robe",
+    "none": "Aucune pièce de votre garde-robe liée",
+    "onlyType": "Seulement {type}",
+    "pickerDescription": "Choisissez la pièce que vous porteriez à la place.",
+    "pickerEmpty": "Aucune pièce trouvée",
+    "pickerTitle": "Choisir une pièce de la garde-robe",
+    "suggestions": "Autres suggestions"
+  },
+  "noMatches": "Aucun look ne correspond à ces filtres",
+  "notes": {
+    "placeholder": "Qu'est-ce qui vous plaît ?",
+    "save": "Enregistrer les notes",
+    "saved": "Notes enregistrées",
+    "title": "Notes"
+  },
+  "subtitle": "Les looks enregistrés et comment les recréer avec votre garde-robe",
+  "tags": {
+    "hint": "Les situations où vous porteriez ce look. Touchez pour basculer.",
+    "title": "Convient pour"
+  },
+  "title": "Inspiration",
+  "totalCount": "{count} looks",
+  "untitled": "Look sans titre",
+  "upload": {
+    "cancel": "Annuler",
+    "choose": "Choisir une photo",
+    "description": "Une photo d'une tenue qui vous plaît. Les données de localisation sont supprimées à l'enregistrement.",
+    "error": "Impossible d'enregistrer le look",
+    "photo": "Photo",
+    "save": "Enregistrer le look",
+    "sourceLabel": "Lien source",
+    "sourcePlaceholder": "Où vous l'avez trouvé (facultatif)",
+    "success": "Look enregistré",
+    "title": "Enregistrer un look d'inspiration",
+    "titleLabel": "Titre",
+    "titlePlaceholder": "Par exemple, look d'été en lin"
+  },
+  "vote": {
+    "label": "Votre avis",
+    "like": "J'aime",
+    "love": "J'adore"
+  }
+}

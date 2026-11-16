@@ -1,0 +1,101 @@
+{
+  "add": "ルックを追加",
+  "analysis": {
+    "error": "この写真のアイテムを自動で特定できませんでした。手動で追加するか、もう一度お試しください。",
+    "retry": "もう一度分析",
+    "retryError": "分析を開始できませんでした",
+    "running": "写真のアイテムを探しています…"
+  },
+  "detail": {
+    "back": "インスピレーションに戻る",
+    "delete": "ルックを削除",
+    "deleteConfirm": "このルックと写真を削除しますか？",
+    "deleteError": "ルックを削除できませんでした",
+    "deleted": "ルックを削除しました",
+    "editDetails": "タイトルとリンクを編集",
+    "notFound": "このルックが見つかりません。",
+    "photoAlt": "インスピレーションのルック",
+    "photoError": "写真を差し替えできませんでした",
+    "photoReplaced": "写真を差し替えました",
+    "replaceConfirm": "写真を差し替えると、その写真に登録したアイテムは削除されます。続けますか？",
+    "replacePhoto": "写真を差し替え",
+    "save": "保存",
+    "saveError": "変更を保存できませんでした"
+  },
+  "empty": "保存したインスピレーションはまだありません",
+  "emptyHint": "気に入ったコーデの写真を保存して評価し、アイテムをワードローブと紐付けましょう。",
+  "filters": {
+    "all": "すべて",
+    "allTags": "すべてのシーン",
+    "like": "いいね",
+    "love": "大好き",
+    "tagLabel": "シーンで絞り込む"
+  },
+  "garments": {
+    "add": "アイテムを追加",
+    "addError": "アイテムを追加できませんでした",
+    "anyColor": "色を指定しない",
+    "cancel": "キャンセル",
+    "colorLabel": "色",
+    "descriptionLabel": "説明",
+    "descriptionPlaceholder": "例：ワイドなリネンパンツ",
+    "empty": "アイテムはまだありません。",
+    "rematch": "ワードローブと照合",
+    "rematchConfirm": "現在の紐付けを、ワードローブからの新しい候補に置き換えますか？",
+    "rematchError": "ルックを照合できませんでした",
+    "remove": "アイテムを削除",
+    "removeError": "アイテムを削除できませんでした",
+    "save": "追加",
+    "title": "このルックのアイテム",
+    "typeLabel": "種類",
+    "typePlaceholder": "種類を選択"
+  },
+  "match": {
+    "allTypes": "すべての種類",
+    "change": "変更",
+    "choose": "アイテムを選択",
+    "clear": "紐付けを解除",
+    "error": "紐付けを更新できませんでした",
+    "linked": "あなたのワードローブから",
+    "none": "ワードローブのアイテムは未設定",
+    "onlyType": "{type}のみ",
+    "pickerDescription": "代わりに着るアイテムを選んでください。",
+    "pickerEmpty": "アイテムが見つかりません",
+    "pickerTitle": "ワードローブのアイテムを選択",
+    "suggestions": "その他の候補"
+  },
+  "noMatches": "条件に合うルックはありません",
+  "notes": {
+    "placeholder": "どこが気に入りましたか？",
+    "save": "メモを保存",
+    "saved": "メモを保存しました",
+    "title": "メモ"
+  },
+  "subtitle": "保存したルックと、手持ちの服での再現方法",
+  "tags": {
+    "hint": "このルックを着たいシーン。タップで切り替えます。",
+    "title": "合うシーン"
+  },
+  "title": "インスピレーション",
+  "totalCount": "{count}件のルック",
+  "untitled": "無題のルック",
+  "upload": {
+    "cancel": "キャンセル",
+    "choose": "写真を選択",
+    "description": "気に入ったコーデの写真。保存時に位置情報は削除されます。",
+    "error": "ルックを保存できませんでした",
+    "photo": "写真",
+    "save": "ルックを保存",
+    "sourceLabel": "出典リンク",
+    "sourcePlaceholder": "見つけた場所（任意）",
+    "success": "ルックを保存しました",
+    "title": "インスピレーションのルックを保存",
+    "titleLabel": "タイトル",
+    "titlePlaceholder": "例：リネンの夏コーデ"
+  },
+  "vote": {
+    "label": "あなたの評価",
+    "like": "いいね",
+    "love": "大好き"
+  }
+}

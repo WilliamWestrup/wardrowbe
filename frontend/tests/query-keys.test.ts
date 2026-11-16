@@ -69,6 +69,13 @@ describe('queryKeys equal the literal keys they replaced', () => {
       queryKeys.pairings.forItemPage('i1', 1, 20),
       ['pairings', 'item', 'i1', 1, 20],
     ],
+    ['inspiration.all', queryKeys.inspiration.all, ['inspiration']],
+    [
+      'inspiration.list',
+      queryKeys.inspiration.list({ vote: 'love' }),
+      ['inspiration', { vote: 'love' }],
+    ],
+    ['inspirationLook', queryKeys.inspirationLook('l1'), ['inspiration-look', 'l1']],
     ['notificationSettings', queryKeys.notificationSettings, ['notification-settings']],
     ['schedules', queryKeys.schedules, ['schedules']],
     ['notificationHistory', queryKeys.notificationHistory(20), ['notification-history', 20]],
@@ -79,6 +86,7 @@ describe('queryKeys equal the literal keys they replaced', () => {
   it('keeps detail keys out of the list prefixes the optimistic updaters rewrite', () => {
     expect(queryKeys.item('i1')[0]).not.toBe(queryKeys.items.all[0])
     expect(queryKeys.outfit('o1')[0]).not.toBe(queryKeys.outfits.all[0])
+    expect(queryKeys.inspirationLook('l1')[0]).not.toBe(queryKeys.inspiration.all[0])
   })
 })
 

@@ -1116,6 +1116,7 @@ class TestWorkerFunctionRegistry:
         func_names = {f.__name__ for f in WorkerSettings.functions}
         expected = {
             "tag_item_image",
+            "analyze_inspiration_look",
             "process_scheduled_notification",
             "retry_failed_notifications",
             "check_scheduled_notifications",

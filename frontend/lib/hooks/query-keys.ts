@@ -1,4 +1,5 @@
 import type { ItemFilter } from '@/lib/types';
+import type { InspirationFilters } from '@/lib/hooks/use-inspiration';
 import type { OutfitFilters } from '@/lib/hooks/use-outfits';
 
 // Invariant: the optimistic updaters call setQueriesData on queryKeys.items.all and
@@ -13,6 +14,7 @@ const FAMILY_OUTFITS = ['familyOutfits'] as const;
 const ANALYTICS = ['analytics'] as const;
 const LEARNING = ['learning'] as const;
 const PAIRINGS = ['pairings'] as const;
+const INSPIRATION = ['inspiration'] as const;
 const ITEM = ['item'] as const;
 const WEAR_STATS = ['wear-stats'] as const;
 const WEAR_HISTORY = ['wear-history'] as const;
@@ -89,6 +91,12 @@ export const queryKeys = {
     forItemPage: (itemId: string, page: number, pageSize: number) =>
       [...PAIRINGS, 'item', itemId, page, pageSize] as const,
   },
+
+  inspiration: {
+    all: INSPIRATION,
+    list: (filters: InspirationFilters) => [...INSPIRATION, filters] as const,
+  },
+  inspirationLook: (lookId: string) => ['inspiration-look', lookId] as const,
 
   notificationSettings: ['notification-settings'] as const,
   ntfyDefaults: ['ntfy-defaults'] as const,

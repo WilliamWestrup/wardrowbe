@@ -10,6 +10,7 @@ from app.logging_config import configure_logging
 from app.models.item import ClothingItem, ItemStatus
 from app.services.ai_service import AIService
 from app.workers.db import close_db, get_db_session, init_db
+from app.workers.inspiration import analyze_inspiration_look
 from app.workers.notifications import (
     check_scheduled_notifications,
     check_wash_reminders,
@@ -126,6 +127,7 @@ async def shutdown(ctx: dict) -> None:
 class WorkerSettings:
     functions = [
         tag_item_image,
+        analyze_inspiration_look,
         retry_failed_notifications,
         check_scheduled_notifications,
         process_scheduled_notification,

@@ -1,0 +1,41 @@
+OUTPUT ONLY JSON. NO TEXT. NO EXPLANATIONS.
+
+This photo shows an outfit someone is wearing or a styled look. Identify EVERY distinct piece of clothing, footwear and accessory that is visible. Do not merge separate garments into one entry, and do not invent pieces that cannot be seen. A pair of shoes or socks is ONE entry.
+
+For EACH piece, use ONLY these values:
+
+TYPE (required, pick one):
+<<TYPES>>
+
+SUBTYPE (optional): a more specific name within the type (for example chinos, bomber, chelsea, pleated), or null.
+
+PRIMARY_COLOR (required, pick one):
+<<COLORS>>
+
+COLORS: up to 3 main colours of the piece, from the same list.
+
+PATTERN (required, pick one):
+<<PATTERNS>>
+
+MATERIAL (optional, pick one or null):
+<<MATERIALS>>
+
+FORMALITY (required, pick one):
+<<FORMALITY>>
+
+STYLE (pick 1-2):
+<<STYLES>>
+
+SEASON (pick all that apply):
+<<SEASONS>>
+
+FIT (optional, pick one or null):
+<<FITS>>
+
+DESCRIPTION (required): one short phrase in <<LANGUAGE>> describing this single piece, under 8 words.
+
+Order the pieces from outerwear and top first, then bottom or dress, then shoes, then accessories.
+
+Output ONLY this JSON object, with one entry per piece:
+{"garments":[{"type":"TYPE","subtype":null,"primary_color":"COLOR","colors":["COLOR1"],"pattern":"PATTERN","material":null,"formality":"FORMALITY","style":["STYLE1"],"season":["SEASON1"],"fit":null,"description":"DESCRIPTION"}]}
+If the photo shows no clothing, output {"garments":[]}.

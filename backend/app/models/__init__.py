@@ -1,5 +1,6 @@
 from app.models.family import Family, FamilyInvite
 from app.models.identity import UserIdentity
+from app.models.inspiration import InspirationGarment, InspirationLook
 from app.models.item import ClothingItem, ItemHistory, ItemImage, WashHistory
 from app.models.learning import (
     ItemPairScore,
@@ -34,4 +35,6 @@ __all__ = [
     "OutfitItem",
     "UserFeedback",
     "Notification",
+    "InspirationLook",
+    "InspirationGarment",
 ]

@@ -1,0 +1,101 @@
+{
+  "add": "Look hinzufügen",
+  "analysis": {
+    "error": "Die Teile auf diesem Foto konnten nicht automatisch erkannt werden. Füge sie von Hand hinzu oder versuche es erneut.",
+    "retry": "Erneut analysieren",
+    "retryError": "Analyse konnte nicht gestartet werden",
+    "running": "Teile auf diesem Foto werden erkannt…"
+  },
+  "detail": {
+    "back": "Zurück zur Inspiration",
+    "delete": "Look löschen",
+    "deleteConfirm": "Diesen Look und sein Foto löschen?",
+    "deleteError": "Look konnte nicht gelöscht werden",
+    "deleted": "Look gelöscht",
+    "editDetails": "Titel und Link bearbeiten",
+    "notFound": "Dieser Look wurde nicht gefunden.",
+    "photoAlt": "Inspirations-Look",
+    "photoError": "Foto konnte nicht ersetzt werden",
+    "photoReplaced": "Foto ersetzt",
+    "replaceConfirm": "Beim Ersetzen des Fotos werden die dafür erfassten Teile entfernt. Fortfahren?",
+    "replacePhoto": "Foto ersetzen",
+    "save": "Speichern",
+    "saveError": "Änderung konnte nicht gespeichert werden"
+  },
+  "empty": "Noch keine Inspiration gespeichert",
+  "emptyHint": "Speichere Fotos von Outfits, die dir gefallen, bewerte sie und verknüpfe ihre Teile mit deiner Garderobe.",
+  "filters": {
+    "all": "Alle",
+    "allTags": "Alle Situationen",
+    "like": "Gefällt mir",
+    "love": "Geliebt",
+    "tagLabel": "Nach Situation filtern"
+  },
+  "garments": {
+    "add": "Teil hinzufügen",
+    "addError": "Teil konnte nicht hinzugefügt werden",
+    "anyColor": "Beliebige Farbe",
+    "cancel": "Abbrechen",
+    "colorLabel": "Farbe",
+    "descriptionLabel": "Beschreibung",
+    "descriptionPlaceholder": "Zum Beispiel weite Leinenhose",
+    "empty": "Noch keine Teile erfasst.",
+    "rematch": "Mit meiner Garderobe abgleichen",
+    "rematchConfirm": "Aktuelle Verknüpfungen durch neue Treffer aus deiner Garderobe ersetzen?",
+    "rematchError": "Look konnte nicht abgeglichen werden",
+    "remove": "Teil entfernen",
+    "removeError": "Teil konnte nicht entfernt werden",
+    "save": "Hinzufügen",
+    "title": "Teile in diesem Look",
+    "typeLabel": "Typ",
+    "typePlaceholder": "Typ auswählen"
+  },
+  "match": {
+    "allTypes": "Alle Typen",
+    "change": "Ändern",
+    "choose": "Teil auswählen",
+    "clear": "Verknüpfung entfernen",
+    "error": "Verknüpfung konnte nicht aktualisiert werden",
+    "linked": "Aus deiner Garderobe",
+    "none": "Nichts aus deiner Garderobe verknüpft",
+    "onlyType": "Nur {type}",
+    "pickerDescription": "Wähle das Teil, das du stattdessen tragen würdest.",
+    "pickerEmpty": "Keine Teile gefunden",
+    "pickerTitle": "Teil aus der Garderobe wählen",
+    "suggestions": "Weitere Vorschläge"
+  },
+  "noMatches": "Keine Looks passen zu diesen Filtern",
+  "notes": {
+    "placeholder": "Was gefällt dir daran?",
+    "save": "Notizen speichern",
+    "saved": "Notizen gespeichert",
+    "title": "Notizen"
+  },
+  "subtitle": "Gespeicherte Looks und wie du sie mit deiner Garderobe nachstylst",
+  "tags": {
+    "hint": "Situationen, in denen du diesen Look tragen würdest. Zum Umschalten tippen.",
+    "title": "Passt für"
+  },
+  "title": "Inspiration",
+  "totalCount": "{count} Looks",
+  "untitled": "Look ohne Titel",
+  "upload": {
+    "cancel": "Abbrechen",
+    "choose": "Foto auswählen",
+    "description": "Ein Foto eines Outfits, das dir gefällt. Standortdaten werden beim Speichern entfernt.",
+    "error": "Look konnte nicht gespeichert werden",
+    "photo": "Foto",
+    "save": "Look speichern",
+    "sourceLabel": "Quelllink",
+    "sourcePlaceholder": "Wo du ihn gefunden hast (optional)",
+    "success": "Look gespeichert",
+    "title": "Inspirations-Look speichern",
+    "titleLabel": "Titel",
+    "titlePlaceholder": "Zum Beispiel Leinen-Sommerlook"
+  },
+  "vote": {
+    "label": "Deine Bewertung",
+    "like": "Gefällt mir",
+    "love": "Liebe ich"
+  }
+}

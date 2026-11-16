@@ -78,7 +78,7 @@ def _garment_entries(value: object) -> list | None:
     return None
 
 
-def _extract_entries(text: str) -> list | None:
+def extract_garment_entries(text: str) -> list | None:
     """The last non-empty answer in the reply, else an empty one; echoed examples never count."""
     answers = [
         entries
@@ -145,7 +145,7 @@ def _iou(a: DetectedGarment, b: DetectedGarment) -> float:
 
 def parse_detection(response_text: str) -> list[DetectedGarment]:
     """Turn the model's reply into clean garments; an unusable reply gives an empty list."""
-    entries = _extract_entries(response_text)
+    entries = extract_garment_entries(response_text)
     if entries is None:
         if response_text.strip():
             logger.warning(f"Could not read garments from AI response: {response_text[:200]}")

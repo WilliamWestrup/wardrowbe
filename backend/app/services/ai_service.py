@@ -13,7 +13,12 @@ from PIL import Image, ImageOps
 from pydantic import BaseModel
 
 from app.config import get_settings
-from app.services.garment_detector import DETECTION_EXAMPLE, DetectedGarment, parse_detection
+from app.services.garment_detector import (
+    DETECTION_EXAMPLE,
+    DetectedGarment,
+    extract_garment_entries,
+    parse_detection,
+)
 from app.utils.garment_vocabulary import (
     COLORS,
     FITS,
@@ -85,6 +90,9 @@ DESCRIPTION_PROMPT = load_prompt("clothing_description")
 DETECTION_PROMPT = render_tagging_prompt(load_prompt("garment_detection")).replace(
     "<<EXAMPLE>>", json.dumps(DETECTION_EXAMPLE)
 )
+INSPIRATION_PROMPT = render_tagging_prompt(load_prompt("inspiration_analysis"))
+# Longest description kept per garment of an inspiration look.
+MAX_GARMENT_DESCRIPTION = 200
 DESCRIPTION_LANGUAGES = {
     "en": "English",
     "zh-CN": "Simplified Chinese",
@@ -677,6 +685,47 @@ class AIService:
         if content is None:
             raise error or RuntimeError("AI returned nothing usable")
         return parse_detection(content)
+
+    def _parse_look_garments(self, response_text: str) -> list[ClothingTags]:
+        """One ClothingTags per garment of an inspiration-look reply, each validated like a
+        single item's tags. Entries with nothing usable are dropped."""
+        garments: list[ClothingTags] = []
+        for entry in extract_garment_entries(response_text) or []:
+            if not isinstance(entry, dict):
+                continue
+            tags = self._parse_tags_from_response(json.dumps(entry))
+            description = entry.get("description")
+            if isinstance(description, str) and description.strip():
+                tags.description = description.strip()[:MAX_GARMENT_DESCRIPTION]
+            tags.raw_response = None
+            if tags.has_content() or tags.description:
+                garments.append(tags)
+        return garments
+
+    async def analyze_look(self, image_path: str | Path, *, locale: str) -> list[ClothingTags]:
+        """Tag every garment in an outfit photo (adapted from lindawal/wardrowbe).
+
+        Unlike analyze_image, which tags the main item, this returns one entry per garment
+        with a short description in the user's language. Raises when no endpoint answered.
+        """
+        image_base64 = await asyncio.to_thread(self._preprocess_image, image_path)
+        language = DESCRIPTION_LANGUAGES.get(locale, DESCRIPTION_LANGUAGES[DEFAULT_LOCALE])
+        messages = [
+            {"role": "system", "content": INSPIRATION_PROMPT.replace("<<LANGUAGE>>", language)},
+            {
+                "role": "user",
+                "content": [
+                    {
+                        "type": "image_url",
+                        "image_url": {"url": f"data:image/jpeg;base64,{image_base64}"},
+                    },
+                ],
+            },
+        ]
+        content, error, _ = await self._call_with_fallback(messages, "inspiration look")
+        if content is None:
+            raise error or RuntimeError("AI returned nothing usable")
+        return self._parse_look_garments(content)
 
     async def check_health(self) -> dict:
         """Check health of all configured AI endpoints."""
