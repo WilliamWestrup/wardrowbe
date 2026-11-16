@@ -65,3 +65,10 @@ testing/
 .playwright-mcp
 *.review.yml
 *-test.yml
+
+# Instance data never belongs in this repo: database dumps, photos and exports stay on the server.
+*.dump
+*.sql.gz
+*.heic
+*.HEIC
+instance/

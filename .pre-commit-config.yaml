@@ -1,4 +1,10 @@
 repos:
+  # Secrets: block the commit before a key reaches the public history.
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.1
+    hooks:
+      - id: gitleaks
+
   # Backend: Ruff linting and formatting
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.4.4
