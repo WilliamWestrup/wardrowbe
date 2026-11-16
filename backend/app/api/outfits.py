@@ -1543,7 +1543,14 @@ async def set_outfit_photo(
     outfit.photo_path = stored["image_path"]
     outfit.photo_medium_path = stored["medium_path"]
     outfit.photo_thumbnail_path = stored["thumbnail_path"]
-    await db.commit()
+    try:
+        await db.commit()
+    except Exception:
+        # The new files are not referenced by anything if the commit fails
+        image_service.delete_images(
+            {k: stored.get(k) for k in ("image_path", "medium_path", "thumbnail_path")}
+        )
+        raise
     # Old files go only after the new paths are committed, as with item images
     image_service.delete_images(old)
 
