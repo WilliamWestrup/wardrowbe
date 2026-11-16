@@ -1,0 +1,94 @@
+{
+  "action": {
+    "alter": "Fai modificare",
+    "decide": "Decidi",
+    "donate": "Dona",
+    "keep": "Tieni",
+    "sell": "Vendi"
+  },
+  "declutter": {
+    "archived": "Archiviato",
+    "changeAction": "Cambia azione",
+    "deleteConfirm": "Eliminare questo suggerimento? Il capo resta nel tuo guardaroba.",
+    "deleted": "Suggerimento eliminato",
+    "dismiss": "Ignora",
+    "empty": "Nessun suggerimento di riordino",
+    "emptyHint": "I capi da donare, vendere, far modificare o tenere compaiono qui, con il motivo.",
+    "hint": "Segnare un suggerimento come fatto registra solo la decisione. Per archiviare il capo, aprilo nel tuo guardaroba.",
+    "markDone": "Fatto"
+  },
+  "declutterStatus": {
+    "all": "Tutti",
+    "dismissed": "Ignorati",
+    "done": "Fatti",
+    "open": "Aperti"
+  },
+  "delete": "Elimina",
+  "deleteError": "Impossibile eliminare",
+  "edit": "Modifica",
+  "fields": {
+    "avoid": "Cosa evitare",
+    "look_for": "Cosa cercare",
+    "notes": "Note",
+    "priority": "Priorità",
+    "reason": "Perché manca",
+    "size": "Taglia",
+    "tags": "Situazioni",
+    "title": "Titolo",
+    "type": "Tipo"
+  },
+  "gapDialog": {
+    "anyType": "Qualsiasi tipo",
+    "cancel": "Annulla",
+    "description": "Descrivi il capo mancante. I prodotti suggeriti e gli abbinamenti li aggiunge il tuo stylist.",
+    "editTitle": "Modifica voce",
+    "newTitle": "Aggiungi alla lista acquisti",
+    "save": "Salva",
+    "saveError": "Impossibile salvare",
+    "saved": "Salvato",
+    "titlePlaceholder": "es. Giacca impermeabile corta"
+  },
+  "gapStatus": {
+    "all": "Tutti",
+    "bought": "Acquistati",
+    "dropped": "Scartati",
+    "open": "Aperti"
+  },
+  "gaps": {
+    "add": "Aggiungi alla lista",
+    "boughtItem": "Capo acquistato",
+    "deleteConfirm": "Rimuovere questa voce dalla lista acquisti?",
+    "deleted": "Voce rimossa",
+    "drop": "Scarta",
+    "empty": "La tua lista acquisti è vuota",
+    "emptyHint": "I capi che mancano al tuo guardaroba compaiono qui, con cosa cercare e dove trovarli. Il tuo stylist può aggiungerli tramite l'API, oppure puoi aggiungerli tu.",
+    "looks": "Look di riferimento",
+    "markBought": "Acquistato",
+    "pairsWith": "Si abbina con",
+    "untitledLook": "Look senza titolo"
+  },
+  "noMatches": "Niente con questo filtro.",
+  "priority": {
+    "high": "Alta",
+    "low": "Bassa",
+    "medium": "Media"
+  },
+  "priorityGroup": {
+    "high": "Priorità alta",
+    "low": "Priorità bassa",
+    "medium": "Priorità media"
+  },
+  "products": {
+    "checkedAt": "Verificato il {date}",
+    "title": "Prodotti suggeriti"
+  },
+  "reopen": "Riapri",
+  "saveError": "Impossibile salvare la modifica",
+  "sizeBadge": "Taglia {size}",
+  "subtitle": "Cosa manca al tuo guardaroba e cosa potrebbe uscirne.",
+  "tabs": {
+    "declutter": "Riordino",
+    "gaps": "Lista acquisti"
+  },
+  "title": "Acquisti"
+}

@@ -1,0 +1,94 @@
+{
+  "action": {
+    "alter": "Alter",
+    "decide": "Decide",
+    "donate": "Donate",
+    "keep": "Keep",
+    "sell": "Sell"
+  },
+  "declutter": {
+    "archived": "Archived",
+    "changeAction": "Change action",
+    "deleteConfirm": "Delete this suggestion? The piece stays in your wardrobe.",
+    "deleted": "Suggestion deleted",
+    "dismiss": "Dismiss",
+    "empty": "No declutter suggestions",
+    "emptyHint": "Pieces suggested to donate, sell, alter or keep show up here, with the reason.",
+    "hint": "Marking a suggestion done only records the decision. To archive the piece, open it in your wardrobe.",
+    "markDone": "Done"
+  },
+  "declutterStatus": {
+    "all": "All",
+    "dismissed": "Dismissed",
+    "done": "Done",
+    "open": "Open"
+  },
+  "delete": "Delete",
+  "deleteError": "Could not delete",
+  "edit": "Edit",
+  "fields": {
+    "avoid": "What to avoid",
+    "look_for": "What to look for",
+    "notes": "Notes",
+    "priority": "Priority",
+    "reason": "Why it's missing",
+    "size": "Size",
+    "tags": "Situations",
+    "title": "Title",
+    "type": "Type"
+  },
+  "gapDialog": {
+    "anyType": "Any type",
+    "cancel": "Cancel",
+    "description": "Describe the missing piece. Product suggestions and pairings are added by your stylist.",
+    "editTitle": "Edit entry",
+    "newTitle": "Add to shopping list",
+    "save": "Save",
+    "saveError": "Could not save",
+    "saved": "Saved",
+    "titlePlaceholder": "e.g. Short rain jacket"
+  },
+  "gapStatus": {
+    "all": "All",
+    "bought": "Bought",
+    "dropped": "Dropped",
+    "open": "Open"
+  },
+  "gaps": {
+    "add": "Add to list",
+    "boughtItem": "Bought item",
+    "deleteConfirm": "Remove this entry from the shopping list?",
+    "deleted": "Entry removed",
+    "drop": "Drop",
+    "empty": "Your shopping list is empty",
+    "emptyHint": "Pieces your wardrobe is missing show up here, with what to look for and where to find them. Your stylist can add them through the API, or you can add them yourself.",
+    "looks": "Reference looks",
+    "markBought": "Bought",
+    "pairsWith": "Pairs with",
+    "untitledLook": "Untitled look"
+  },
+  "noMatches": "Nothing here with this filter.",
+  "priority": {
+    "high": "High",
+    "low": "Low",
+    "medium": "Medium"
+  },
+  "priorityGroup": {
+    "high": "High priority",
+    "low": "Low priority",
+    "medium": "Medium priority"
+  },
+  "products": {
+    "checkedAt": "Checked {date}",
+    "title": "Product suggestions"
+  },
+  "reopen": "Reopen",
+  "saveError": "Could not save the change",
+  "sizeBadge": "Size {size}",
+  "subtitle": "What your wardrobe is missing, and what could leave it.",
+  "tabs": {
+    "declutter": "Declutter",
+    "gaps": "Shopping list"
+  },
+  "title": "Shopping"
+}

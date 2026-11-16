@@ -1,0 +1,94 @@
+{
+  "action": {
+    "alter": "お直し",
+    "decide": "検討",
+    "donate": "寄付",
+    "keep": "残す",
+    "sell": "売る"
+  },
+  "declutter": {
+    "archived": "アーカイブ済み",
+    "changeAction": "アクションを変更",
+    "deleteConfirm": "この提案を削除しますか？アイテムはワードローブに残ります。",
+    "deleted": "提案を削除しました",
+    "dismiss": "却下",
+    "empty": "整理の提案はありません",
+    "emptyHint": "寄付・売却・お直し・残す候補のアイテムが、理由とともにここに表示されます。",
+    "hint": "完了にしても決定が記録されるだけです。アイテムをアーカイブするには、ワードローブで開いてください。",
+    "markDone": "完了"
+  },
+  "declutterStatus": {
+    "all": "すべて",
+    "dismissed": "却下",
+    "done": "完了",
+    "open": "未対応"
+  },
+  "delete": "削除",
+  "deleteError": "削除できませんでした",
+  "edit": "編集",
+  "fields": {
+    "avoid": "避けたいこと",
+    "look_for": "探すポイント",
+    "notes": "メモ",
+    "priority": "優先度",
+    "reason": "足りない理由",
+    "size": "サイズ",
+    "tags": "シーン",
+    "title": "タイトル",
+    "type": "種類"
+  },
+  "gapDialog": {
+    "anyType": "種類を問わない",
+    "cancel": "キャンセル",
+    "description": "足りないアイテムを説明してください。おすすめ商品や組み合わせはスタイリストが追加します。",
+    "editTitle": "項目を編集",
+    "newTitle": "買い物リストに追加",
+    "save": "保存",
+    "saveError": "保存できませんでした",
+    "saved": "保存しました",
+    "titlePlaceholder": "例：短めのレインジャケット"
+  },
+  "gapStatus": {
+    "all": "すべて",
+    "bought": "購入済み",
+    "dropped": "見送り",
+    "open": "未対応"
+  },
+  "gaps": {
+    "add": "リストに追加",
+    "boughtItem": "購入したアイテム",
+    "deleteConfirm": "この項目を買い物リストから削除しますか？",
+    "deleted": "項目を削除しました",
+    "drop": "見送る",
+    "empty": "買い物リストは空です",
+    "emptyHint": "ワードローブに足りないアイテムが、探すポイントや見つけられる場所とともにここに表示されます。スタイリストが API から追加することも、自分で追加することもできます。",
+    "looks": "参考ルック",
+    "markBought": "購入済み",
+    "pairsWith": "合わせるアイテム",
+    "untitledLook": "無題のルック"
+  },
+  "noMatches": "この条件に当てはまる項目はありません。",
+  "priority": {
+    "high": "高",
+    "low": "低",
+    "medium": "中"
+  },
+  "priorityGroup": {
+    "high": "優先度：高",
+    "low": "優先度：低",
+    "medium": "優先度：中"
+  },
+  "products": {
+    "checkedAt": "{date} に確認",
+    "title": "おすすめ商品"
+  },
+  "reopen": "再開",
+  "saveError": "変更を保存できませんでした",
+  "sizeBadge": "サイズ {size}",
+  "subtitle": "ワードローブに足りないものと、手放せるもの。",
+  "tabs": {
+    "declutter": "整理",
+    "gaps": "買い物リスト"
+  },
+  "title": "ショッピング"
+}

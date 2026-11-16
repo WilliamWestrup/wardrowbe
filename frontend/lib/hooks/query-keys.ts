@@ -1,6 +1,7 @@
 import type { ItemFilter } from '@/lib/types';
 import type { InspirationFilters } from '@/lib/hooks/use-inspiration';
 import type { OutfitFilters } from '@/lib/hooks/use-outfits';
+import type { DeclutterFilters, GapFilters } from '@/lib/hooks/use-shopping';
 
 // Invariant: the optimistic updaters call setQueriesData on queryKeys.items.all and
 // queryKeys.outfits.all and assume every cache entry under those prefixes is a list response
@@ -15,6 +16,7 @@ const ANALYTICS = ['analytics'] as const;
 const LEARNING = ['learning'] as const;
 const PAIRINGS = ['pairings'] as const;
 const INSPIRATION = ['inspiration'] as const;
+const SHOPPING = ['shopping'] as const;
 const ITEM = ['item'] as const;
 const WEAR_STATS = ['wear-stats'] as const;
 const WEAR_HISTORY = ['wear-history'] as const;
@@ -97,6 +99,12 @@ export const queryKeys = {
     list: (filters: InspirationFilters) => [...INSPIRATION, filters] as const,
   },
   inspirationLook: (lookId: string) => ['inspiration-look', lookId] as const,
+
+  shopping: {
+    all: SHOPPING,
+    gaps: (filters: GapFilters) => [...SHOPPING, 'gaps', filters] as const,
+    declutter: (filters: DeclutterFilters) => [...SHOPPING, 'declutter', filters] as const,
+  },
 
   notificationSettings: ['notification-settings'] as const,
   ntfyDefaults: ['ntfy-defaults'] as const,

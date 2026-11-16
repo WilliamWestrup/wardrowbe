@@ -1,0 +1,94 @@
+{
+  "action": {
+    "alter": "수선",
+    "decide": "결정 필요",
+    "donate": "기부",
+    "keep": "보관",
+    "sell": "판매"
+  },
+  "declutter": {
+    "archived": "보관됨",
+    "changeAction": "작업 변경",
+    "deleteConfirm": "이 제안을 삭제할까요? 아이템은 옷장에 남습니다.",
+    "deleted": "제안을 삭제했습니다",
+    "dismiss": "무시",
+    "empty": "정리 제안이 없습니다",
+    "emptyHint": "기부, 판매, 수선 또는 보관을 제안한 아이템이 이유와 함께 여기에 표시됩니다.",
+    "hint": "완료로 표시하면 결정만 기록됩니다. 아이템을 보관하려면 옷장에서 열어 주세요.",
+    "markDone": "완료"
+  },
+  "declutterStatus": {
+    "all": "전체",
+    "dismissed": "무시함",
+    "done": "완료",
+    "open": "진행 중"
+  },
+  "delete": "삭제",
+  "deleteError": "삭제할 수 없습니다",
+  "edit": "편집",
+  "fields": {
+    "avoid": "피할 점",
+    "look_for": "찾을 점",
+    "notes": "메모",
+    "priority": "우선순위",
+    "reason": "부족한 이유",
+    "size": "사이즈",
+    "tags": "상황",
+    "title": "제목",
+    "type": "종류"
+  },
+  "gapDialog": {
+    "anyType": "모든 종류",
+    "cancel": "취소",
+    "description": "부족한 아이템을 설명하세요. 추천 상품과 코디는 스타일리스트가 추가합니다.",
+    "editTitle": "항목 편집",
+    "newTitle": "쇼핑 목록에 추가",
+    "save": "저장",
+    "saveError": "저장할 수 없습니다",
+    "saved": "저장했습니다",
+    "titlePlaceholder": "예: 짧은 레인 재킷"
+  },
+  "gapStatus": {
+    "all": "전체",
+    "bought": "구매함",
+    "dropped": "보류",
+    "open": "진행 중"
+  },
+  "gaps": {
+    "add": "목록에 추가",
+    "boughtItem": "구매한 아이템",
+    "deleteConfirm": "이 항목을 쇼핑 목록에서 삭제할까요?",
+    "deleted": "항목을 삭제했습니다",
+    "drop": "보류",
+    "empty": "쇼핑 목록이 비어 있습니다",
+    "emptyHint": "옷장에 부족한 아이템이 찾을 점과 구할 곳과 함께 여기에 표시됩니다. 스타일리스트가 API로 추가하거나 직접 추가할 수 있습니다.",
+    "looks": "참고 룩",
+    "markBought": "구매함",
+    "pairsWith": "함께 입을 아이템",
+    "untitledLook": "제목 없는 룩"
+  },
+  "noMatches": "이 필터에 해당하는 항목이 없습니다.",
+  "priority": {
+    "high": "높음",
+    "low": "낮음",
+    "medium": "보통"
+  },
+  "priorityGroup": {
+    "high": "높은 우선순위",
+    "low": "낮은 우선순위",
+    "medium": "보통 우선순위"
+  },
+  "products": {
+    "checkedAt": "{date} 확인",
+    "title": "추천 상품"
+  },
+  "reopen": "다시 열기",
+  "saveError": "변경 사항을 저장할 수 없습니다",
+  "sizeBadge": "사이즈 {size}",
+  "subtitle": "옷장에 부족한 것과 정리할 수 있는 것.",
+  "tabs": {
+    "declutter": "정리",
+    "gaps": "쇼핑 목록"
+  },
+  "title": "쇼핑"
+}

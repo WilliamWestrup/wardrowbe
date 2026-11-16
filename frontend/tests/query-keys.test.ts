@@ -76,6 +76,17 @@ describe('queryKeys equal the literal keys they replaced', () => {
       ['inspiration', { vote: 'love' }],
     ],
     ['inspirationLook', queryKeys.inspirationLook('l1'), ['inspiration-look', 'l1']],
+    ['shopping.all', queryKeys.shopping.all, ['shopping']],
+    [
+      'shopping.gaps',
+      queryKeys.shopping.gaps({ status: 'open' }),
+      ['shopping', 'gaps', { status: 'open' }],
+    ],
+    [
+      'shopping.declutter',
+      queryKeys.shopping.declutter({ status: 'open' }),
+      ['shopping', 'declutter', { status: 'open' }],
+    ],
     ['notificationSettings', queryKeys.notificationSettings, ['notification-settings']],
     ['schedules', queryKeys.schedules, ['schedules']],
     ['notificationHistory', queryKeys.notificationHistory(20), ['notification-history', 20]],

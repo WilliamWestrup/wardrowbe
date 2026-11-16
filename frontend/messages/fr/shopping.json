@@ -1,0 +1,94 @@
+{
+  "action": {
+    "alter": "Retoucher",
+    "decide": "Décider",
+    "donate": "Donner",
+    "keep": "Garder",
+    "sell": "Vendre"
+  },
+  "declutter": {
+    "archived": "Archivée",
+    "changeAction": "Changer l'action",
+    "deleteConfirm": "Supprimer cette suggestion ? La pièce reste dans votre garde-robe.",
+    "deleted": "Suggestion supprimée",
+    "dismiss": "Écarter",
+    "empty": "Aucune suggestion de tri",
+    "emptyHint": "Les pièces à donner, vendre, retoucher ou garder apparaissent ici, avec la raison.",
+    "hint": "Marquer une suggestion comme faite enregistre seulement la décision. Pour archiver la pièce, ouvrez-la dans votre garde-robe.",
+    "markDone": "Fait"
+  },
+  "declutterStatus": {
+    "all": "Tout",
+    "dismissed": "Écarté",
+    "done": "Fait",
+    "open": "Ouvert"
+  },
+  "delete": "Supprimer",
+  "deleteError": "Suppression impossible",
+  "edit": "Modifier",
+  "fields": {
+    "avoid": "Ce qu'il faut éviter",
+    "look_for": "Ce qu'il faut chercher",
+    "notes": "Notes",
+    "priority": "Priorité",
+    "reason": "Pourquoi il manque",
+    "size": "Taille",
+    "tags": "Situations",
+    "title": "Titre",
+    "type": "Type"
+  },
+  "gapDialog": {
+    "anyType": "Tout type",
+    "cancel": "Annuler",
+    "description": "Décrivez la pièce manquante. Les suggestions de produits et les associations sont ajoutées par votre styliste.",
+    "editTitle": "Modifier l'élément",
+    "newTitle": "Ajouter à la liste d'achats",
+    "save": "Enregistrer",
+    "saveError": "Enregistrement impossible",
+    "saved": "Enregistré",
+    "titlePlaceholder": "ex. Veste de pluie courte"
+  },
+  "gapStatus": {
+    "all": "Tout",
+    "bought": "Acheté",
+    "dropped": "Abandonné",
+    "open": "Ouvert"
+  },
+  "gaps": {
+    "add": "Ajouter à la liste",
+    "boughtItem": "Pièce achetée",
+    "deleteConfirm": "Retirer cet élément de la liste d'achats ?",
+    "deleted": "Élément retiré",
+    "drop": "Abandonner",
+    "empty": "Votre liste d'achats est vide",
+    "emptyHint": "Les pièces qui manquent à votre garde-robe apparaissent ici, avec quoi chercher et où les trouver. Votre styliste peut les ajouter via l'API, ou vous pouvez les ajouter vous-même.",
+    "looks": "Looks de référence",
+    "markBought": "Acheté",
+    "pairsWith": "Va avec",
+    "untitledLook": "Look sans titre"
+  },
+  "noMatches": "Rien pour ce filtre.",
+  "priority": {
+    "high": "Haute",
+    "low": "Basse",
+    "medium": "Moyenne"
+  },
+  "priorityGroup": {
+    "high": "Priorité haute",
+    "low": "Priorité basse",
+    "medium": "Priorité moyenne"
+  },
+  "products": {
+    "checkedAt": "Vérifié le {date}",
+    "title": "Suggestions de produits"
+  },
+  "reopen": "Rouvrir",
+  "saveError": "Impossible d'enregistrer la modification",
+  "sizeBadge": "Taille {size}",
+  "subtitle": "Ce qui manque à votre garde-robe, et ce qui pourrait la quitter.",
+  "tabs": {
+    "declutter": "Désencombrer",
+    "gaps": "Liste d'achats"
+  },
+  "title": "Achats"
+}

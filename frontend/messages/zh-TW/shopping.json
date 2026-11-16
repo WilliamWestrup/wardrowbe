@@ -1,0 +1,94 @@
+{
+  "action": {
+    "alter": "修改",
+    "decide": "再考慮",
+    "donate": "捐贈",
+    "keep": "保留",
+    "sell": "出售"
+  },
+  "declutter": {
+    "archived": "已封存",
+    "changeAction": "變更動作",
+    "deleteConfirm": "要刪除此建議嗎？單品會留在衣櫥中。",
+    "deleted": "已刪除建議",
+    "dismiss": "略過",
+    "empty": "沒有整理建議",
+    "emptyHint": "建議捐贈、出售、修改或保留的單品會和原因一起顯示在這裡。",
+    "hint": "標記為已完成只會記錄決定。要封存該單品，請在衣櫥中開啟它。",
+    "markDone": "完成"
+  },
+  "declutterStatus": {
+    "all": "全部",
+    "dismissed": "已略過",
+    "done": "已完成",
+    "open": "待處理"
+  },
+  "delete": "刪除",
+  "deleteError": "無法刪除",
+  "edit": "編輯",
+  "fields": {
+    "avoid": "要避免什麼",
+    "look_for": "要找什麼",
+    "notes": "備註",
+    "priority": "優先順序",
+    "reason": "缺少的原因",
+    "size": "尺寸",
+    "tags": "場合",
+    "title": "標題",
+    "type": "類型"
+  },
+  "gapDialog": {
+    "anyType": "任何類型",
+    "cancel": "取消",
+    "description": "描述缺少的單品。推薦商品和搭配由你的造型師新增。",
+    "editTitle": "編輯項目",
+    "newTitle": "加入購物清單",
+    "save": "儲存",
+    "saveError": "無法儲存",
+    "saved": "已儲存",
+    "titlePlaceholder": "例如：短版雨衣"
+  },
+  "gapStatus": {
+    "all": "全部",
+    "bought": "已購買",
+    "dropped": "已放棄",
+    "open": "待處理"
+  },
+  "gaps": {
+    "add": "加入清單",
+    "boughtItem": "已購單品",
+    "deleteConfirm": "要從購物清單移除此項目嗎？",
+    "deleted": "已移除項目",
+    "drop": "放棄",
+    "empty": "購物清單是空的",
+    "emptyHint": "衣櫥裡缺少的單品會顯示在這裡，附上要找什麼、在哪裡買得到。你的造型師可以透過 API 新增，你也可以自己新增。",
+    "looks": "參考造型",
+    "markBought": "已購買",
+    "pairsWith": "可搭配",
+    "untitledLook": "未命名造型"
+  },
+  "noMatches": "沒有符合此篩選的內容。",
+  "priority": {
+    "high": "高",
+    "low": "低",
+    "medium": "中"
+  },
+  "priorityGroup": {
+    "high": "高優先",
+    "low": "低優先",
+    "medium": "中優先"
+  },
+  "products": {
+    "checkedAt": "{date} 確認",
+    "title": "推薦商品"
+  },
+  "reopen": "重新開啟",
+  "saveError": "無法儲存變更",
+  "sizeBadge": "尺寸 {size}",
+  "subtitle": "衣櫥裡缺少的，以及可以清理的。",
+  "tabs": {
+    "declutter": "整理",
+    "gaps": "購物清單"
+  },
+  "title": "購物"
+}

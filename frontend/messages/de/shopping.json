@@ -1,0 +1,94 @@
+{
+  "action": {
+    "alter": "Ändern lassen",
+    "decide": "Entscheiden",
+    "donate": "Spenden",
+    "keep": "Behalten",
+    "sell": "Verkaufen"
+  },
+  "declutter": {
+    "archived": "Archiviert",
+    "changeAction": "Aktion ändern",
+    "deleteConfirm": "Diesen Vorschlag löschen? Das Teil bleibt in deiner Garderobe.",
+    "deleted": "Vorschlag gelöscht",
+    "dismiss": "Ablehnen",
+    "empty": "Keine Vorschläge zum Aussortieren",
+    "emptyHint": "Teile, die du spenden, verkaufen, ändern lassen oder behalten könntest, erscheinen hier mit Begründung.",
+    "hint": "Als erledigt markieren hält nur die Entscheidung fest. Um das Teil zu archivieren, öffne es in deiner Garderobe.",
+    "markDone": "Erledigt"
+  },
+  "declutterStatus": {
+    "all": "Alle",
+    "dismissed": "Abgelehnt",
+    "done": "Erledigt",
+    "open": "Offen"
+  },
+  "delete": "Löschen",
+  "deleteError": "Löschen fehlgeschlagen",
+  "edit": "Bearbeiten",
+  "fields": {
+    "avoid": "Was vermeiden",
+    "look_for": "Worauf achten",
+    "notes": "Notizen",
+    "priority": "Priorität",
+    "reason": "Warum es fehlt",
+    "size": "Größe",
+    "tags": "Anlässe",
+    "title": "Titel",
+    "type": "Art"
+  },
+  "gapDialog": {
+    "anyType": "Beliebige Art",
+    "cancel": "Abbrechen",
+    "description": "Beschreibe das fehlende Teil. Produktvorschläge und Kombinationen fügt dein Stylist hinzu.",
+    "editTitle": "Eintrag bearbeiten",
+    "newTitle": "Zur Einkaufsliste hinzufügen",
+    "save": "Speichern",
+    "saveError": "Speichern fehlgeschlagen",
+    "saved": "Gespeichert",
+    "titlePlaceholder": "z. B. Kurze Regenjacke"
+  },
+  "gapStatus": {
+    "all": "Alle",
+    "bought": "Gekauft",
+    "dropped": "Verworfen",
+    "open": "Offen"
+  },
+  "gaps": {
+    "add": "Zur Liste hinzufügen",
+    "boughtItem": "Gekauftes Teil",
+    "deleteConfirm": "Diesen Eintrag von der Einkaufsliste entfernen?",
+    "deleted": "Eintrag entfernt",
+    "drop": "Verwerfen",
+    "empty": "Deine Einkaufsliste ist leer",
+    "emptyHint": "Teile, die deiner Garderobe fehlen, erscheinen hier – mit Hinweisen, worauf du achten solltest und wo du sie findest. Dein Stylist kann sie über die API hinzufügen, oder du trägst sie selbst ein.",
+    "looks": "Referenz-Looks",
+    "markBought": "Gekauft",
+    "pairsWith": "Passt zu",
+    "untitledLook": "Look ohne Titel"
+  },
+  "noMatches": "Nichts für diesen Filter.",
+  "priority": {
+    "high": "Hoch",
+    "low": "Niedrig",
+    "medium": "Mittel"
+  },
+  "priorityGroup": {
+    "high": "Hohe Priorität",
+    "low": "Niedrige Priorität",
+    "medium": "Mittlere Priorität"
+  },
+  "products": {
+    "checkedAt": "Geprüft am {date}",
+    "title": "Produktvorschläge"
+  },
+  "reopen": "Wieder öffnen",
+  "saveError": "Änderung konnte nicht gespeichert werden",
+  "sizeBadge": "Größe {size}",
+  "subtitle": "Was deiner Garderobe fehlt und was gehen könnte.",
+  "tabs": {
+    "declutter": "Aussortieren",
+    "gaps": "Einkaufsliste"
+  },
+  "title": "Einkaufen"
+}

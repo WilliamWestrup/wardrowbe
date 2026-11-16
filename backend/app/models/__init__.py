@@ -12,6 +12,7 @@ from app.models.notification import Notification, NotificationSettings
 from app.models.outfit import FamilyOutfitRating, Outfit, OutfitItem, UserFeedback
 from app.models.preference import UserPreference
 from app.models.schedule import Schedule
+from app.models.shopping import DeclutterSuggestion, WardrobeGap
 from app.models.user import User
 
 __all__ = [
@@ -37,4 +38,6 @@ __all__ = [
     "Notification",
     "InspirationLook",
     "InspirationGarment",
+    "WardrobeGap",
+    "DeclutterSuggestion",
 ]
