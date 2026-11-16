@@ -3,11 +3,13 @@ from typing import Annotated
 from pydantic import AfterValidator, BaseModel, Field, field_validator
 
 from app.schemas.color import ColorList
-from app.utils.garment_vocabulary import OCCASIONS
+from app.utils.garment_vocabulary import CLIMATES, OCCASIONS
 from app.utils.preference_defaults import DEFAULT_OCCASION
 
 MAX_AUTHORING_TEXT_LENGTH = 2000
 VALID_OCCASIONS = frozenset(OCCASIONS)
+OUTFIT_TAGS: tuple[str, ...] = OCCASIONS + CLIMATES
+MAX_OUTFIT_TAGS = 10
 
 
 def _normalize_occasion(value: str) -> str:
@@ -20,6 +22,24 @@ def _normalize_occasion(value: str) -> str:
 
 
 Occasion = Annotated[str, Field(max_length=50), AfterValidator(_normalize_occasion)]
+
+
+def _normalize_outfit_tags(values: list[str]) -> list[str]:
+    """Situation tags: occasion or climate keys, deduplicated, in vocabulary order."""
+    cleaned = {v.strip().lower() for v in values if v.strip()}
+    unknown = cleaned - set(OUTFIT_TAGS)
+    if unknown:
+        raise ValueError(
+            f"Unknown tag(s) {', '.join(sorted(unknown))}. Must be occasion or climate keys."
+        )
+    return [tag for tag in OUTFIT_TAGS if tag in cleaned]
+
+
+OutfitTags = Annotated[
+    list[Annotated[str, Field(max_length=30)]],
+    Field(max_length=MAX_OUTFIT_TAGS),
+    AfterValidator(_normalize_outfit_tags),
+]
 
 
 # Default occasions saved before they were validated can hold any string, and reading them back

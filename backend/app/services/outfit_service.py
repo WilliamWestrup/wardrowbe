@@ -38,6 +38,7 @@ class OutfitListFilters:
     search: str | None = None
     occasions: list[str] | None = None
     cloned_from_outfit_id: UUID | None = None
+    tags: list[str] | None = None
 
 
 E = TypeVar("E", bound=StrEnum)
@@ -107,6 +108,8 @@ class OutfitService:
 
         if filters.occasion:
             clauses.append(Outfit.occasion == filters.occasion)
+        if filters.tags:
+            clauses.append(Outfit.tags.contains(filters.tags))
 
         if filters.date_from:
             clauses.append(Outfit.scheduled_for >= filters.date_from)

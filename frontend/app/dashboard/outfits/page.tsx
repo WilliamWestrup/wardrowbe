@@ -25,7 +25,8 @@ import {
   type OutfitFilters,
 } from '@/lib/hooks/use-outfits';
 import { cn, formatDateKey, formatShortDate, parseDateString } from '@/lib/utils';
-import { useOccasionsMatching } from '@/lib/hooks/use-translated-constants';
+import { useOccasionsMatching, useOutfitTagLabel } from '@/lib/hooks/use-translated-constants';
+import { OUTFIT_TAG_OPTIONS } from '@/components/outfits/outfit-situations';
 import { useUserToday } from '@/lib/hooks/use-user';
 import { useAiUiEnabled } from '@/lib/hooks/use-features';
 import { GRID_PAGE_SIZE } from '@/lib/pagination';
@@ -152,6 +153,8 @@ function OutfitsPageContent() {
   const chips = CHIP_ORDER.filter((c) => aiUiEnabled || c !== 'pairings');
   const view: ViewMode = urlView;
   const urlMonth = parseMonthParam(searchParams.get('month'));
+  const tagFilter = searchParams.get('tag') || '';
+  const tagLabel = useOutfitTagLabel();
 
   const [search, setSearch] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
@@ -185,10 +188,10 @@ function OutfitsPageContent() {
   }, [search]);
 
   const occasionsMatching = useOccasionsMatching();
-  const filters = useMemo(
-    () => chipToFilters(chip, debouncedSearch, occasionsMatching(debouncedSearch)),
-    [chip, debouncedSearch, occasionsMatching],
-  );
+  const filters = useMemo(() => {
+    const base = chipToFilters(chip, debouncedSearch, occasionsMatching(debouncedSearch));
+    return tagFilter ? { ...base, tags: [tagFilter] } : base;
+  }, [chip, debouncedSearch, occasionsMatching, tagFilter]);
 
   const listQuery = useInfiniteOutfits(filters, GRID_PAGE_SIZE);
   const bulkDeleteOutfits = useBulkDeleteOutfits();
@@ -197,7 +200,7 @@ function OutfitsPageContent() {
   // can span loaded pages.
   useEffect(() => {
     setSelection({ mode: 'none', selectedIds: new Set(), excludedIds: new Set() });
-  }, [chip, debouncedSearch]);
+  }, [chip, debouncedSearch, tagFilter]);
 
   useEffect(() => {
     if (view === 'calendar') {
@@ -275,6 +278,13 @@ function OutfitsPageContent() {
     router.replace(
       `/dashboard/outfits${params.toString() ? `?${params}` : ''}`,
     );
+  };
+
+  const handleTagChange = (next: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (next) params.set('tag', next);
+    else params.delete('tag');
+    router.replace(`/dashboard/outfits${params.toString() ? `?${params}` : ''}`);
   };
 
   const handleViewChange = (next: ViewMode) => {
@@ -478,6 +488,22 @@ function OutfitsPageContent() {
             </button>
           ))}
         </div>
+
+        {view === 'list' && (
+          <select
+            aria-label={t('situations.filterLabel')}
+            value={tagFilter}
+            onChange={(e) => handleTagChange(e.target.value)}
+            className="h-9 rounded-md border border-input bg-background px-3 text-sm"
+          >
+            <option value="">{t('situations.filterAll')}</option>
+            {OUTFIT_TAG_OPTIONS.map((tag) => (
+              <option key={tag} value={tag}>
+                {tagLabel(tag)}
+              </option>
+            ))}
+          </select>
+        )}
 
         {chip === 'my-looks' && (
           <div className="relative ml-auto min-w-[220px]">

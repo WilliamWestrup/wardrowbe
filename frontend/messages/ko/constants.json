@@ -1,4 +1,10 @@
 {
+  "climates": {
+    "hot": "더움",
+    "mild": "온화",
+    "cold": "추움",
+    "rain": "비"
+  },
   "colors": {
     "beige": "베이지",
     "black": "블랙",

@@ -32,6 +32,7 @@ function makeOutfit(
     family_rating_count: null,
     is_starter_suggestion: false,
     created_at: '2026-07-30T00:00:00Z',
+    tags: [],
   };
 }
 

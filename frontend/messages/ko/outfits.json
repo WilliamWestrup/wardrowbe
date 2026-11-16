@@ -164,7 +164,26 @@
     }
   },
   "newOutfit": "새 코디",
+  "photo": {
+    "title": "사진",
+    "alt": "코디 사진",
+    "empty": "아직 사진이 없습니다. 입은 모습을 추가해 보세요.",
+    "add": "사진 추가",
+    "replace": "사진 교체",
+    "remove": "사진 삭제",
+    "removeConfirm": "이 사진을 삭제할까요?",
+    "saved": "사진을 저장했습니다",
+    "saveError": "사진을 저장하지 못했습니다",
+    "removeError": "사진을 삭제하지 못했습니다"
+  },
   "search": "룩북 검색...",
+  "situations": {
+    "title": "어울리는 상황",
+    "hint": "이 코디가 어울리는 상황입니다. 탭하여 전환하세요.",
+    "saveError": "상황을 저장하지 못했습니다",
+    "filterLabel": "상황으로 필터",
+    "filterAll": "모든 상황"
+  },
   "subtitle": "내 룩, 착용한 코디, AI 추천",
   "title": "코디",
   "totalCount": "총 {count}개",

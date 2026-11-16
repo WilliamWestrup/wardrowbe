@@ -1,4 +1,10 @@
 {
+  "climates": {
+    "hot": "Caldo",
+    "mild": "Mite",
+    "cold": "Freddo",
+    "rain": "Pioggia"
+  },
   "colors": {
     "beige": "Beige",
     "black": "Nero",

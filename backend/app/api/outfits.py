@@ -3,7 +3,7 @@ from datetime import date, datetime
 from typing import Annotated
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException, Query, status
+from fastapi import APIRouter, Depends, File, HTTPException, Query, UploadFile, status
 from pydantic import BaseModel, ConfigDict, Field, ValidationInfo, computed_field, field_validator
 from sqlalchemy import and_, select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -25,12 +25,15 @@ from app.models.outfit import (
 from app.models.user import User
 from app.schemas.outfit import (
     MAX_AUTHORING_TEXT_LENGTH,
+    MAX_OUTFIT_TAGS,
     Occasion,
     OutfitAttributeFields,
+    OutfitTags,
     stored_occasion_or_default,
 )
 from app.services.ai_service import AIDisabledError
 from app.services.external_outfit_service import ExternalOutfitService
+from app.services.image_service import ImageService
 from app.services.item_service import ItemService
 from app.services.learning_service import LearningService
 from app.services.outfit_service import OutfitListFilters, OutfitService, parse_enum_csv
@@ -52,6 +55,7 @@ from app.utils.rate_limit import rate_limit_by_user
 from app.utils.scales import RATING_MAX, RATING_MIN
 from app.utils.signed_urls import sign_optional
 from app.utils.timezone import get_user_today
+from app.utils.uploads import UploadTooLargeError, read_upload_within_limit
 
 logger = logging.getLogger(__name__)
 
@@ -172,6 +176,10 @@ class OutfitResponse(BaseModel):
     formality: str | None = None
     palette: list[str] | None = None
     notes: str | None = None
+    tags: list[str] = Field(default_factory=list)
+    photo_path: str | None = None
+    photo_medium_path: str | None = None
+    photo_thumbnail_path: str | None = None
     highlights: list[str] | None = None
     weather: dict | None = None
     items: list[OutfitItemResponse]
@@ -181,6 +189,16 @@ class OutfitResponse(BaseModel):
     family_rating_count: int | None = None
     is_starter_suggestion: bool = False
     created_at: datetime
+
+    @computed_field
+    @property
+    def photo_url(self) -> str | None:
+        return sign_optional(self.photo_medium_path or self.photo_path)
+
+    @computed_field
+    @property
+    def photo_thumbnail_url(self) -> str | None:
+        return sign_optional(self.photo_thumbnail_path)
 
 
 class OutfitListResponse(BaseModel):
@@ -206,6 +224,7 @@ class BulkOutfitFilters(BaseModel):
     item_type: str | None = None
     search: str | None = None
     occasions: Annotated[list[str] | None, Field(max_length=MAX_SEARCH_OCCASIONS)] = None
+    tags: Annotated[list[str] | None, Field(max_length=MAX_OUTFIT_TAGS)] = None
     cloned_from_outfit_id: UUID | None = None
 
     @field_validator("status", "source")
@@ -420,6 +439,10 @@ def outfit_to_response(
         formality=outfit.formality,
         palette=outfit.palette,
         notes=outfit.notes,
+        tags=list(outfit.tags or []),
+        photo_path=outfit.photo_path,
+        photo_medium_path=outfit.photo_medium_path,
+        photo_thumbnail_path=outfit.photo_thumbnail_path,
         highlights=highlights,
         weather=outfit.weather_data,
         items=items,
@@ -430,6 +453,14 @@ def outfit_to_response(
         is_starter_suggestion=is_starter_suggestion,
         created_at=outfit.created_at,
     )
+
+
+def _photo_paths(outfit: Outfit) -> dict[str, str | None]:
+    return {
+        "image_path": outfit.photo_path,
+        "medium_path": outfit.photo_medium_path,
+        "thumbnail_path": outfit.photo_thumbnail_path,
+    }
 
 
 @router.post("/suggest", response_model=OutfitResponse)
@@ -624,6 +655,9 @@ async def list_outfits(
     cloned_from_outfit_id: UUID | None = Query(
         None, description="Filter to wear instances of a specific template"
     ),
+    tags: str | None = Query(
+        None, max_length=500, description="Comma-separated situation tags; matches all of them"
+    ),
 ) -> OutfitListResponse:
     service = OutfitService(db)
 
@@ -649,6 +683,7 @@ async def list_outfits(
         if occasions
         else None,
         cloned_from_outfit_id=cloned_from_outfit_id,
+        tags=[t.strip().lower() for t in tags.split(",") if t.strip()] if tags else None,
     )
 
     outfits, total = await service.list_with_filters(filters, pagination.page, pagination.page_size)
@@ -703,6 +738,7 @@ async def bulk_delete_outfits(
                 detail=f"Maximum {limit} outfits per bulk action",
             )
 
+    photos: list[dict[str, str | None]] = []
     for outfit_id in outfit_ids:
         try:
             result = await db.execute(
@@ -716,6 +752,7 @@ async def bulk_delete_outfits(
                 failed += 1
                 continue
 
+            photos.append(_photo_paths(outfit))
             await db.delete(outfit)
             deleted += 1
         except Exception as e:
@@ -724,6 +761,9 @@ async def bulk_delete_outfits(
             failed += 1
 
     await db.commit()
+    image_service = ImageService()
+    for photo in photos:
+        image_service.delete_images(photo)
 
     return BulkDeleteOutfitsResponse(
         deleted=deleted,
@@ -867,8 +907,10 @@ async def delete_outfit(
             detail={"message": "Outfit not found", "error_code": "OUTFIT_NOT_FOUND"},
         )
 
+    photo = _photo_paths(outfit)
     await db.delete(outfit)
     await db.commit()
+    ImageService().delete_images(photo)
 
 
 @router.post("/{outfit_id}/feedback", response_model=FeedbackResponse)
@@ -1201,6 +1243,7 @@ class PatchOutfitRequest(BaseModel):
 
     name: Annotated[str | None, Field(max_length=100)] = None
     items: Annotated[list[UUID] | None, Field(min_length=1, max_length=20)] = None
+    tags: OutfitTags | None = None
 
 
 async def _run_learning_safely(db: AsyncSession, outfit_id: UUID, user_id: UUID) -> None:
@@ -1380,7 +1423,7 @@ async def patch_outfit_endpoint(
         str(current_user.id), "patch_outfit", max_requests=30, window_seconds=60
     )
 
-    if request.name is None and request.items is None:
+    if request.name is None and request.items is None and request.tags is None:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail={"error_code": "PATCH_EMPTY", "message": "No fields provided"},
@@ -1393,6 +1436,7 @@ async def patch_outfit_endpoint(
             outfit_id=outfit_id,
             name=request.name,
             items=request.items,
+            tags=request.tags,
         )
     except LookupError:
         raise HTTPException(
@@ -1446,3 +1490,78 @@ async def delete_family_rating(
 
     await db.delete(rating)
     await db.flush()
+
+
+async def _get_owned_outfit(db: AsyncSession, outfit_id: UUID, user: User) -> Outfit:
+    result = await db.execute(
+        select(Outfit).where(and_(Outfit.id == outfit_id, Outfit.user_id == user.id))
+    )
+    outfit = result.scalar_one_or_none()
+    if outfit is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail={"message": "Outfit not found", "error_code": "OUTFIT_NOT_FOUND"},
+        )
+    return outfit
+
+
+@router.put("/{outfit_id}/photo", response_model=OutfitResponse)
+async def set_outfit_photo(
+    outfit_id: UUID,
+    db: DbSession,
+    current_user: Annotated[User, Depends(get_current_user)],
+    image: UploadFile = File(...),
+) -> OutfitResponse:
+    """Attach a photo to an outfit, replacing the previous one. Stored re-encoded as JPEG,
+    which drops EXIF metadata such as GPS location."""
+    await rate_limit_by_user(
+        str(current_user.id), "outfit_photo", max_requests=20, window_seconds=60
+    )
+    outfit = await _get_owned_outfit(db, outfit_id, current_user)
+
+    try:
+        content = await read_upload_within_limit(image, get_settings().max_upload_size_mb)
+    except UploadTooLargeError as e:
+        raise HTTPException(status_code=status.HTTP_413_CONTENT_TOO_LARGE, detail=str(e)) from None
+
+    image_service = ImageService()
+    if not image_service.validate_image(content, image.content_type or "application/octet-stream"):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Invalid image file. Supported formats: JPEG, PNG, WebP, HEIC",
+        )
+    try:
+        stored = await image_service.process_and_store(
+            user_id=current_user.id,
+            image_data=content,
+            original_filename=image.filename or "upload.jpg",
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e)) from None
+
+    old = _photo_paths(outfit)
+    outfit.photo_path = stored["image_path"]
+    outfit.photo_medium_path = stored["medium_path"]
+    outfit.photo_thumbnail_path = stored["thumbnail_path"]
+    await db.commit()
+    # Old files go only after the new paths are committed, as with item images
+    image_service.delete_images(old)
+
+    full = await StudioService(db).get_full_outfit(outfit.id)
+    return outfit_to_response(full)
+
+
+@router.delete("/{outfit_id}/photo", response_model=OutfitResponse)
+async def delete_outfit_photo(
+    outfit_id: UUID,
+    db: DbSession,
+    current_user: Annotated[User, Depends(get_current_user)],
+) -> OutfitResponse:
+    outfit = await _get_owned_outfit(db, outfit_id, current_user)
+    old = _photo_paths(outfit)
+    outfit.photo_path = outfit.photo_medium_path = outfit.photo_thumbnail_path = None
+    await db.commit()
+    ImageService().delete_images(old)
+
+    full = await StudioService(db).get_full_outfit(outfit.id)
+    return outfit_to_response(full)

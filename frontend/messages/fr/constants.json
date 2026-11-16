@@ -1,4 +1,10 @@
 {
+  "climates": {
+    "hot": "Chaud",
+    "mild": "Doux",
+    "cold": "Froid",
+    "rain": "Pluie"
+  },
   "colors": {
     "beige": "Beige",
     "black": "Noir",

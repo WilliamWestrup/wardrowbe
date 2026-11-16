@@ -24,6 +24,8 @@ STYLES: tuple[str, ...] = tuple(_DATA["styles"])
 SEASONS: tuple[str, ...] = tuple(_DATA["seasons"])
 FITS: tuple[str, ...] = tuple(_DATA["fits"])
 OCCASIONS: tuple[str, ...] = tuple(entry["value"] for entry in _DATA["occasions"])
+# Weather an outfit suits; with OCCASIONS, the vocabulary of outfit situation tags.
+CLIMATES: tuple[str, ...] = tuple(_DATA["climates"])
 OCCASION_FORMALITY: dict[str, tuple[str, ...]] = {
     entry["value"]: tuple(entry["formality"]) for entry in _DATA["occasions"]
 }

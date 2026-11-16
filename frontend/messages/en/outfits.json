@@ -164,7 +164,26 @@
     }
   },
   "newOutfit": "New Outfit",
+  "photo": {
+    "title": "Photo",
+    "alt": "Photo of the outfit",
+    "empty": "No photo yet. Add one of you wearing it.",
+    "add": "Add photo",
+    "replace": "Replace photo",
+    "remove": "Remove photo",
+    "removeConfirm": "Remove this photo?",
+    "saved": "Photo saved",
+    "saveError": "Could not save the photo",
+    "removeError": "Could not remove the photo"
+  },
   "search": "Search lookbook...",
+  "situations": {
+    "title": "Works for",
+    "hint": "Situations where this outfit works. Tap to toggle.",
+    "saveError": "Could not save the situations",
+    "filterLabel": "Filter by situation",
+    "filterAll": "All situations"
+  },
   "subtitle": "Your looks, worn outfits, and AI suggestions",
   "title": "Outfits",
   "totalCount": "{count} total",

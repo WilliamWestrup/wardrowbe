@@ -6,7 +6,7 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 import { useSession } from 'next-auth/react';
-import { api } from '@/lib/api';
+import { api, API_BASE_PATH, ApiError, getAccessToken } from '@/lib/api';
 import { BulkBatchResponse, drainCursor } from '@/lib/bulk-batches';
 import { useSetTokenIfAvailable, applySessionToken } from '@/lib/hooks/use-session-token';
 import type { FamilyRating, Outfit, OutfitStatus } from '@/lib/types';
@@ -46,6 +46,7 @@ export interface OutfitFilters {
   search?: string;
   occasions?: string[];
   cloned_from_outfit_id?: string;
+  tags?: string[];
 }
 
 export interface FeedbackData {
@@ -98,6 +99,7 @@ function outfitListParams(filters: OutfitFilters, page: number, pageSize: number
   if (filters.occasions?.length) params.occasions = filters.occasions.join(',');
   if (filters.cloned_from_outfit_id)
     params.cloned_from_outfit_id = filters.cloned_from_outfit_id;
+  if (filters.tags?.length) params.tags = filters.tags.join(',');
 
   return params;
 }
@@ -196,6 +198,44 @@ export function useDeleteOutfit() {
 
   return useMutation({
     mutationFn: (outfitId: string) => api.delete<void>(`/outfits/${outfitId}`),
+    onSuccess: () => {
+      invalidateOutfitCaches(queryClient);
+    },
+  });
+}
+
+export function useSetOutfitPhoto() {
+  const queryClient = useQueryClient();
+  const { data: session } = useSession();
+
+  return useMutation({
+    mutationFn: async ({ outfitId, file }: { outfitId: string; file: File }) => {
+      const token = session?.accessToken || getAccessToken();
+      const formData = new FormData();
+      formData.append('image', file);
+      const response = await fetch(`${API_BASE_PATH}/outfits/${outfitId}/photo`, {
+        method: 'PUT',
+        body: formData,
+        credentials: 'include',
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      });
+      if (!response.ok) {
+        const data = await response.json().catch(() => ({}));
+        throw new ApiError(data.detail || 'Failed to upload photo', response.status, data);
+      }
+      return response.json() as Promise<Outfit>;
+    },
+    onSuccess: () => {
+      invalidateOutfitCaches(queryClient);
+    },
+  });
+}
+
+export function useDeleteOutfitPhoto() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (outfitId: string) => api.delete<Outfit>(`/outfits/${outfitId}/photo`),
     onSuccess: () => {
       invalidateOutfitCaches(queryClient);
     },

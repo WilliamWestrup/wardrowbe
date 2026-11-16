@@ -164,7 +164,26 @@
     }
   },
   "newOutfit": "新しいコーデ",
+  "photo": {
+    "title": "写真",
+    "alt": "コーデの写真",
+    "empty": "写真はまだありません。着用した写真を追加しましょう。",
+    "add": "写真を追加",
+    "replace": "写真を差し替え",
+    "remove": "写真を削除",
+    "removeConfirm": "この写真を削除しますか？",
+    "saved": "写真を保存しました",
+    "saveError": "写真を保存できませんでした",
+    "removeError": "写真を削除できませんでした"
+  },
   "search": "ルックブックを検索...",
+  "situations": {
+    "title": "向いている場面",
+    "hint": "このコーデが合う場面。タップで切り替え。",
+    "saveError": "場面を保存できませんでした",
+    "filterLabel": "場面で絞り込む",
+    "filterAll": "すべての場面"
+  },
   "subtitle": "あなたのコーデ、着用履歴、AIの提案",
   "title": "コーデ",
   "totalCount": "合計 {count}",

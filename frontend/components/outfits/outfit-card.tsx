@@ -18,7 +18,11 @@ import { cn, formatRelativeDate } from '@/lib/utils';
 import type { Outfit } from '@/lib/hooks/use-outfits';
 import { useOutfitTitle } from '@/lib/hooks/use-outfit-title';
 import { useUserToday } from '@/lib/hooks/use-user';
-import { useOccasionLabel, useTypeLabel } from '@/lib/hooks/use-translated-constants';
+import {
+  useOccasionLabel,
+  useOutfitTagLabel,
+  useTypeLabel,
+} from '@/lib/hooks/use-translated-constants';
 import { useLocale, useTranslations, type createTranslator } from 'next-intl';
 import type outfitsMessages from '@/messages/en/outfits.json';
 
@@ -102,6 +106,7 @@ export function OutfitCard({ outfit, onClick, selectMode, selected, onSelect }: 
   const locale = useLocale();
   const getUserToday = useUserToday();
   const occasionLabel = useOccasionLabel();
+  const tagLabel = useOutfitTagLabel();
   const getTitle = useOutfitTitle();
   const badge = getSourceBadge(outfit, t);
   const visibleItems = outfit.items.slice(0, 4);
@@ -138,6 +143,16 @@ export function OutfitCard({ outfit, onClick, selectMode, selected, onSelect }: 
               />
             </div>
           )}
+          {outfit.photo_thumbnail_url || outfit.photo_url ? (
+            <Image
+              src={(outfit.photo_thumbnail_url || outfit.photo_url)!}
+              alt={getTitle(outfit)}
+              fill
+              className="object-cover"
+              sizes="(max-width: 640px) 50vw, 25vw"
+              loading="lazy"
+            />
+          ) : (
           <div className="absolute inset-0 grid grid-cols-4 gap-0.5 p-2">
             {visibleItems.map((item, idx) => (
               <div
@@ -170,6 +185,7 @@ export function OutfitCard({ outfit, onClick, selectMode, selected, onSelect }: 
               </div>
             )}
           </div>
+          )}
           {badge && (
             <div
               className={cn(
@@ -192,6 +208,21 @@ export function OutfitCard({ outfit, onClick, selectMode, selected, onSelect }: 
             </Badge>
             <span>{getMetaLabel(outfit, t, locale, getUserToday())}</span>
           </div>
+          {outfit.tags?.length > 0 && (
+            <div className="flex flex-wrap gap-1 pt-1">
+              {outfit.tags.slice(0, 4).map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-full bg-muted px-2 py-0.5 text-[10px] font-medium text-muted-foreground"
+                >
+                  {tagLabel(tag)}
+                </span>
+              ))}
+              {outfit.tags.length > 4 && (
+                <span className="text-[10px] text-muted-foreground">+{outfit.tags.length - 4}</span>
+              )}
+            </div>
+          )}
         </div>
       </CardContent>
     </Card>

@@ -2,7 +2,7 @@
 
 import { useCallback, useMemo } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
-import { OCCASION_VALUES } from '@/lib/generated/garment-vocabulary';
+import { CLIMATE_VALUES, OCCASION_VALUES } from '@/lib/generated/garment-vocabulary';
 import {
   CLOTHING_TYPES,
   CLOTHING_COLORS,
@@ -90,6 +90,16 @@ export function useFormalityLabel() {
 
 export function useOccasionLabel() {
   return useCatalogLabel(useTranslations('constants.occasions'));
+}
+
+// Outfit situation tags mix occasion keys and climate keys, which never overlap.
+export function useOutfitTagLabel() {
+  const occasion = useCatalogLabel(useTranslations('constants.occasions'));
+  const climate = useCatalogLabel(useTranslations('constants.climates'));
+  return useCallback(
+    (tag: string) => ((CLIMATE_VALUES as readonly string[]).includes(tag) ? climate(tag) : occasion(tag)),
+    [occasion, climate],
+  );
 }
 
 // Unnamed outfits are titled by their translated occasion, so a search must also match the

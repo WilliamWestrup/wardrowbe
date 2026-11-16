@@ -164,7 +164,26 @@
     }
   },
   "newOutfit": "Nuovo outfit",
+  "photo": {
+    "title": "Foto",
+    "alt": "Foto dell'outfit",
+    "empty": "Nessuna foto. Aggiungine una in cui lo indossi.",
+    "add": "Aggiungi foto",
+    "replace": "Sostituisci foto",
+    "remove": "Rimuovi foto",
+    "removeConfirm": "Rimuovere questa foto?",
+    "saved": "Foto salvata",
+    "saveError": "Impossibile salvare la foto",
+    "removeError": "Impossibile rimuovere la foto"
+  },
   "search": "Cerca nel lookbook...",
+  "situations": {
+    "title": "Adatto per",
+    "hint": "Situazioni in cui questo outfit funziona. Tocca per attivare o disattivare.",
+    "saveError": "Impossibile salvare le situazioni",
+    "filterLabel": "Filtra per situazione",
+    "filterAll": "Tutte le situazioni"
+  },
   "subtitle": "I tuoi look, outfit indossati e suggerimenti IA",
   "title": "Outfit",
   "totalCount": "{count} totali",

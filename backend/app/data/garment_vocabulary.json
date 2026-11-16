@@ -73,6 +73,7 @@
     {"value": "hiking", "formality": ["very-casual", "casual"]},
     {"value": "weekend", "formality": ["very-casual", "casual", "smart-casual"]}
   ],
+  "climates": ["hot", "mild", "cold", "rain"],
   "colors": [
     {"value": "black", "hex": "#1a1a1a"},
     {"value": "white", "hex": "#FAFAFA"},

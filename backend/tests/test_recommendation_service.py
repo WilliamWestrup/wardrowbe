@@ -841,6 +841,10 @@ class TestIncludeItems:
                 o.formality = None
                 o.palette = None
                 o.notes = None
+                o.tags = []
+                o.photo_path = None
+                o.photo_medium_path = None
+                o.photo_thumbnail_path = None
                 o.weather_data = None
                 o.items = []
                 o.feedback = []

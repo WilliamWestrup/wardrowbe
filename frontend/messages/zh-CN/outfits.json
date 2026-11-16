@@ -164,7 +164,26 @@
     }
   },
   "newOutfit": "新建穿搭",
+  "photo": {
+    "title": "照片",
+    "alt": "穿搭照片",
+    "empty": "还没有照片。添加一张你穿着它的照片。",
+    "add": "添加照片",
+    "replace": "更换照片",
+    "remove": "删除照片",
+    "removeConfirm": "删除这张照片？",
+    "saved": "照片已保存",
+    "saveError": "无法保存照片",
+    "removeError": "无法删除照片"
+  },
   "search": "搜索造型册...",
+  "situations": {
+    "title": "适合场合",
+    "hint": "这套穿搭适合的场合。点按切换。",
+    "saveError": "无法保存场合",
+    "filterLabel": "按场合筛选",
+    "filterAll": "所有场合"
+  },
   "subtitle": "您的造型、穿着记录和 AI 建议",
   "title": "穿搭",
   "totalCount": "共{count}组",

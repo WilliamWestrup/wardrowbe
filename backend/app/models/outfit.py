@@ -14,7 +14,7 @@ from sqlalchemy import (
     Text,
     func,
 )
-from sqlalchemy.dialects.postgresql import JSONB, UUID
+from sqlalchemy.dialects.postgresql import ARRAY, JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database import Base
@@ -73,6 +73,15 @@ class Outfit(Base):
     formality: Mapped[str | None] = mapped_column(String(50), nullable=True)
     palette: Mapped[list | None] = mapped_column(JSONB, nullable=True)
     notes: Mapped[str | None] = mapped_column(Text, nullable=True)
+    # Situations the outfit works for (occasion keys plus climate keys), e.g. ["work", "rain"]
+    tags: Mapped[list[str]] = mapped_column(
+        ARRAY(String(30)), nullable=False, default=list, server_default="{}"
+    )
+
+    # A real photo of the outfit being worn (or any picture the user picks for it)
+    photo_path: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    photo_medium_path: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    photo_thumbnail_path: Mapped[str | None] = mapped_column(String(500), nullable=True)
 
     # Status
     status: Mapped[OutfitStatus] = mapped_column(

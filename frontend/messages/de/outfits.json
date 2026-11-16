@@ -164,7 +164,26 @@
     }
   },
   "newOutfit": "Neues Outfit",
+  "photo": {
+    "title": "Foto",
+    "alt": "Foto des Outfits",
+    "empty": "Noch kein Foto. Füge eins hinzu, auf dem du es trägst.",
+    "add": "Foto hinzufügen",
+    "replace": "Foto ersetzen",
+    "remove": "Foto entfernen",
+    "removeConfirm": "Dieses Foto entfernen?",
+    "saved": "Foto gespeichert",
+    "saveError": "Foto konnte nicht gespeichert werden",
+    "removeError": "Foto konnte nicht entfernt werden"
+  },
   "search": "Lookbook durchsuchen...",
+  "situations": {
+    "title": "Passt für",
+    "hint": "Situationen, in denen dieses Outfit funktioniert. Zum Umschalten tippen.",
+    "saveError": "Situationen konnten nicht gespeichert werden",
+    "filterLabel": "Nach Situation filtern",
+    "filterAll": "Alle Situationen"
+  },
   "subtitle": "Deine Looks, getragenen Outfits und KI-Vorschläge",
   "title": "Outfits",
   "totalCount": "{count} insgesamt",

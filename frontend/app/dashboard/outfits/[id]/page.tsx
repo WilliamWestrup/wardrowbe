@@ -24,6 +24,8 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { SourceBadge } from '@/components/shared/source-badge';
 import { LineageCard } from '@/components/shared/lineage-card';
 import { CloneToLookbookDialog } from '@/components/shared/clone-to-lookbook-dialog';
+import { OutfitPhoto } from '@/components/outfits/outfit-photo';
+import { OutfitSituations } from '@/components/outfits/outfit-situations';
 import { useDeleteOutfit, useOutfit, useOutfits } from '@/lib/hooks/use-outfits';
 import { useWearToday } from '@/lib/hooks/use-studio';
 import { useUserToday } from '@/lib/hooks/use-user';
@@ -150,6 +152,13 @@ export default function OutfitDetailPage() {
       </div>
 
       <LineageCard outfit={outfit} />
+
+      <Card>
+        <CardContent className="p-4 space-y-6">
+          <OutfitSituations outfit={outfit} />
+          <OutfitPhoto outfit={outfit} />
+        </CardContent>
+      </Card>
 
       <Card>
         <CardContent className="p-4">

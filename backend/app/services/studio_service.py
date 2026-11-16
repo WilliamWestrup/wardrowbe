@@ -355,6 +355,7 @@ class StudioService:
         outfit_id: UUID,
         name: str | None,
         items: list[UUID] | None,
+        tags: list[str] | None = None,
     ) -> Outfit:
         result = await self.db.execute(
             select(Outfit)
@@ -370,6 +371,9 @@ class StudioService:
 
         if name is not None:
             outfit.name = name
+
+        if tags is not None:
+            outfit.tags = tags
 
         if items is not None:
             if outfit.feedback is not None and outfit.feedback.worn_at is not None:

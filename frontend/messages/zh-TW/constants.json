@@ -1,4 +1,10 @@
 {
+  "climates": {
+    "hot": "炎熱",
+    "mild": "溫和",
+    "cold": "寒冷",
+    "rain": "下雨"
+  },
   "colors": {
     "beige": "米色",
     "black": "黑色",

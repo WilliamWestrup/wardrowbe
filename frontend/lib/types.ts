@@ -368,6 +368,10 @@ export interface Outfit {
   family_rating_count: number | null;
   is_starter_suggestion: boolean;
   created_at: string;
+  // Situations the outfit works for: occasion keys plus climate keys
+  tags: string[];
+  photo_url?: string | null;
+  photo_thumbnail_url?: string | null;
 }
 
 export interface SuggestRequest {

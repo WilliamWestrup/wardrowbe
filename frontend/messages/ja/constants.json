@@ -1,4 +1,10 @@
 {
+  "climates": {
+    "hot": "暑い",
+    "mild": "穏やか",
+    "cold": "寒い",
+    "rain": "雨"
+  },
   "colors": {
     "beige": "ベージュ",
     "black": "黒",

@@ -30,6 +30,7 @@ function renderVocabulary({
   seasons,
   fits,
   occasions,
+  climates,
   colors,
   color_aliases: colorAliases,
 }) {
@@ -47,6 +48,7 @@ function renderVocabulary({
     `export const SEASON_VALUES = ${list(seasons)};`,
     `export const FIT_VALUES = ${list(fits)};`,
     `export const OCCASION_VALUES = ${list(occasions.map((o) => o.value))};`,
+    `export const CLIMATE_VALUES = ${list(climates)};`,
     `export const ROLE_VALUES = ${list(roleOrder)};`,
     '',
     'export const ITEM_ROLE: Record<string, string> = {',

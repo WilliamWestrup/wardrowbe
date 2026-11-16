@@ -164,7 +164,26 @@
     }
   },
   "newOutfit": "Nouvelle tenue",
+  "photo": {
+    "title": "Photo",
+    "alt": "Photo de la tenue",
+    "empty": "Pas encore de photo. Ajoutez-en une où vous la portez.",
+    "add": "Ajouter une photo",
+    "replace": "Remplacer la photo",
+    "remove": "Supprimer la photo",
+    "removeConfirm": "Supprimer cette photo ?",
+    "saved": "Photo enregistrée",
+    "saveError": "Impossible d'enregistrer la photo",
+    "removeError": "Impossible de supprimer la photo"
+  },
   "search": "Rechercher dans le lookbook...",
+  "situations": {
+    "title": "Convient pour",
+    "hint": "Situations où cette tenue fonctionne. Touchez pour activer ou désactiver.",
+    "saveError": "Impossible d'enregistrer les situations",
+    "filterLabel": "Filtrer par situation",
+    "filterAll": "Toutes les situations"
+  },
   "subtitle": "Vos looks, tenues portées et suggestions IA",
   "title": "Tenues",
   "totalCount": "{count} au total",

@@ -1,11 +1,13 @@
 import os
 import subprocess
+from uuid import UUID, uuid4
 
 import pytest
+from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models import User
-from app.models.outfit import Outfit, OutfitSource
+from app.models.outfit import Outfit
 
 PREVIOUS = "921b8d3bc2b8"
 
@@ -21,36 +23,31 @@ async def test_clears_only_generated_wore_instead_names(db_session: AsyncSession
     await db_session.commit()
     _alembic("downgrade", PREVIOUS)
     try:
-        original = Outfit(user_id=user_id, occasion="casual", source=OutfitSource.manual)
-        db_session.add(original)
-        await db_session.flush()
-
-        def wore_instead(occasion: str, name: str) -> Outfit:
-            return Outfit(
-                user_id=user_id,
-                occasion=occasion,
-                source=OutfitSource.manual,
-                replaces_outfit_id=original.id,
-                name=name,
+        # Raw SQL, because the ORM model also has columns that later migrations add.
+        async def insert(occasion: str, name: str | None, replaces: UUID | None) -> UUID:
+            row = await db_session.execute(
+                text(
+                    "INSERT INTO outfits (id, user_id, occasion, source, replaces_outfit_id, name) "
+                    "VALUES (:id, :user_id, :occasion, 'manual', :replaces, :name) RETURNING id"
+                ),
+                {
+                    "id": uuid4(),
+                    "user_id": user_id,
+                    "occasion": occasion,
+                    "replaces": replaces,
+                    "name": name,
+                },
             )
+            return row.scalar_one()
 
-        generated = wore_instead("casual", "Casual (wore instead)")
-        multiword = wore_instead("date_night", "Date_Night (wore instead)")
-        renamed = wore_instead("casual", "My favourite look")
-        kept = Outfit(
-            user_id=user_id,
-            occasion="casual",
-            source=OutfitSource.manual,
-            name="Casual (wore instead)",
-        )
-        db_session.add_all([generated, multiword, renamed, kept])
-        await db_session.commit()
+        original = await insert("casual", None, None)
         ids = {
-            "generated": generated.id,
-            "multiword": multiword.id,
-            "renamed": renamed.id,
-            "kept": kept.id,
+            "generated": await insert("casual", "Casual (wore instead)", original),
+            "multiword": await insert("date_night", "Date_Night (wore instead)", original),
+            "renamed": await insert("casual", "My favourite look", original),
+            "kept": await insert("casual", "Casual (wore instead)", None),
         }
+        await db_session.commit()
     finally:
         _alembic("upgrade", "head")
 
