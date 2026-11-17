@@ -96,9 +96,13 @@ export function useOccasionLabel() {
 export function useOutfitTagLabel() {
   const occasion = useCatalogLabel(useTranslations('constants.occasions'));
   const climate = useCatalogLabel(useTranslations('constants.climates'));
+  const tOutfitTags = useTranslations('constants.outfitTags');
   return useCallback(
-    (tag: string) => ((CLIMATE_VALUES as readonly string[]).includes(tag) ? climate(tag) : occasion(tag)),
-    [occasion, climate],
+    (tag: string) => {
+      if (tag === 'avoid') return tOutfitTags('avoid');
+      return (CLIMATE_VALUES as readonly string[]).includes(tag) ? climate(tag) : occasion(tag);
+    },
+    [occasion, climate, tOutfitTags],
   );
 }
 

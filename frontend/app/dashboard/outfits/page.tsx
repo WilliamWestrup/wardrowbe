@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Switch } from '@/components/ui/switch';
 import { OutfitCard } from '@/components/outfits/outfit-card';
 import { OutfitCalendar } from '@/components/outfit-calendar';
 import { BulkActionToolbar, BulkSelection } from '@/components/bulk-action-toolbar';
@@ -154,6 +155,7 @@ function OutfitsPageContent() {
   const view: ViewMode = urlView;
   const urlMonth = parseMonthParam(searchParams.get('month'));
   const tagFilter = searchParams.get('tag') || '';
+  const showAvoid = searchParams.get('avoid') === '1';
   const tagLabel = useOutfitTagLabel();
 
   const [search, setSearch] = useState('');
@@ -190,8 +192,9 @@ function OutfitsPageContent() {
   const occasionsMatching = useOccasionsMatching();
   const filters = useMemo(() => {
     const base = chipToFilters(chip, debouncedSearch, occasionsMatching(debouncedSearch));
-    return tagFilter ? { ...base, tags: [tagFilter] } : base;
-  }, [chip, debouncedSearch, occasionsMatching, tagFilter]);
+    const withAvoid = { ...base, avoid: showAvoid };
+    return tagFilter ? { ...withAvoid, tags: [tagFilter] } : withAvoid;
+  }, [chip, debouncedSearch, occasionsMatching, tagFilter, showAvoid]);
 
   const listQuery = useInfiniteOutfits(filters, GRID_PAGE_SIZE);
   const bulkDeleteOutfits = useBulkDeleteOutfits();
@@ -200,7 +203,7 @@ function OutfitsPageContent() {
   // can span loaded pages.
   useEffect(() => {
     setSelection({ mode: 'none', selectedIds: new Set(), excludedIds: new Set() });
-  }, [chip, debouncedSearch, tagFilter]);
+  }, [chip, debouncedSearch, tagFilter, showAvoid]);
 
   useEffect(() => {
     if (view === 'calendar') {
@@ -284,6 +287,13 @@ function OutfitsPageContent() {
     const params = new URLSearchParams(searchParams.toString());
     if (next) params.set('tag', next);
     else params.delete('tag');
+    router.replace(`/dashboard/outfits${params.toString() ? `?${params}` : ''}`);
+  };
+
+  const handleAvoidChange = (next: boolean) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (next) params.set('avoid', '1');
+    else params.delete('avoid');
     router.replace(`/dashboard/outfits${params.toString() ? `?${params}` : ''}`);
   };
 
@@ -505,6 +515,13 @@ function OutfitsPageContent() {
           </select>
         )}
 
+        {view === 'list' && (
+          <label className="flex items-center gap-2 text-sm">
+            <Switch checked={showAvoid} onCheckedChange={handleAvoidChange} />
+            {t('filters.avoid')}
+          </label>
+        )}
+
         {chip === 'my-looks' && (
           <div className="relative ml-auto min-w-[220px]">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -530,9 +547,9 @@ function OutfitsPageContent() {
           {listError ? (
             <div className="text-center py-8 text-destructive">{t('loadError')}</div>
           ) : listLoading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mx-auto max-w-[calc((50dvh-9rem)*1.5+0.75rem)] md:max-w-[calc((50dvh-9rem)*3+2.25rem)]">
               {Array.from({ length: 6 }).map((_, i) => (
-                <Skeleton key={i} className="aspect-[5/4] rounded-lg" />
+                <Skeleton key={i} className="aspect-[3/4] max-h-[calc(50dvh-9rem)] rounded-lg" />
               ))}
             </div>
           ) : outfits.length === 0 ? (
@@ -549,7 +566,7 @@ function OutfitsPageContent() {
             </div>
           ) : (
             <>
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mx-auto max-w-[calc((50dvh-9rem)*1.5+0.75rem)] md:max-w-[calc((50dvh-9rem)*3+2.25rem)]">
                 {outfits.map((outfit) => {
                   const isSelected = selection.mode === 'all'
                     ? !selection.excludedIds.has(outfit.id)
@@ -615,7 +632,7 @@ function OutfitsPageContent() {
             ) : calendarLoading ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {Array.from({ length: 4 }).map((_, i) => (
-                  <Skeleton key={i} className="aspect-[5/4] rounded-lg" />
+                  <Skeleton key={i} className="aspect-[3/4] max-h-[calc(50dvh-9rem)] rounded-lg" />
                 ))}
               </div>
             ) : selectedDate && selectedDayOutfits.length === 0 ? (
@@ -676,9 +693,9 @@ export default function OutfitsPage() {
       fallback={
         <div className="space-y-6">
           <Skeleton className="h-10 w-48" />
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mx-auto max-w-[calc((50dvh-9rem)*1.5+0.75rem)] md:max-w-[calc((50dvh-9rem)*3+2.25rem)]">
             {Array.from({ length: 6 }).map((_, i) => (
-              <Skeleton key={i} className="aspect-[5/4] rounded-lg" />
+              <Skeleton key={i} className="aspect-[3/4] max-h-[calc(50dvh-9rem)] rounded-lg" />
             ))}
           </div>
         </div>

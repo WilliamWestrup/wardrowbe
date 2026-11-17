@@ -91,6 +91,9 @@
     "pairing": "페어링",
     "scheduled": "예약됨"
   },
+  "outfitTags": {
+    "avoid": "입지 말 것"
+  },
   "patterns": {
     "animal-print": "애니멀 프린트",
     "camouflage": "카모플라주",

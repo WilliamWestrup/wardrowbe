@@ -8,7 +8,9 @@ from app.utils.preference_defaults import DEFAULT_OCCASION
 
 MAX_AUTHORING_TEXT_LENGTH = 2000
 VALID_OCCASIONS = frozenset(OCCASIONS)
-OUTFIT_TAGS: tuple[str, ...] = OCCASIONS + CLIMATES
+# Marks a "don't wear" example: a combination kept to show what does not work.
+AVOID_TAG = "avoid"
+OUTFIT_TAGS: tuple[str, ...] = OCCASIONS + CLIMATES + (AVOID_TAG,)
 MAX_OUTFIT_TAGS = 10
 
 
@@ -30,7 +32,7 @@ def _normalize_outfit_tags(values: list[str]) -> list[str]:
     unknown = cleaned - set(OUTFIT_TAGS)
     if unknown:
         raise ValueError(
-            f"Unknown tag(s) {', '.join(sorted(unknown))}. Must be occasion or climate keys."
+            f"Unknown tag(s) {', '.join(sorted(unknown))}. Must be occasion or climate keys, or avoid."
         )
     return [tag for tag in OUTFIT_TAGS if tag in cleaned]
 

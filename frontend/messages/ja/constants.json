@@ -91,6 +91,9 @@
     "pairing": "ペアリング",
     "scheduled": "スケジュール"
   },
+  "outfitTags": {
+    "avoid": "着ない組み合わせ"
+  },
   "patterns": {
     "animal-print": "アニマル柄",
     "camouflage": "迷彩",

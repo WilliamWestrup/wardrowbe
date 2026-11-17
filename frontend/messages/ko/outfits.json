@@ -100,6 +100,7 @@
   "filters": {
     "ai": "AI",
     "all": "전체",
+    "avoid": "입지 말 것",
     "lookbook": "룩북",
     "pairings": "페어링",
     "replacements": "대체",

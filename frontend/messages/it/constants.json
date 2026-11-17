@@ -91,6 +91,9 @@
     "pairing": "Abbinamento",
     "scheduled": "Programmato"
   },
+  "outfitTags": {
+    "avoid": "Da non indossare"
+  },
   "patterns": {
     "animal-print": "Animalier",
     "camouflage": "Mimetico",

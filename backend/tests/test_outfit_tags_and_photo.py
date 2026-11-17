@@ -98,6 +98,31 @@ class TestOutfitTags:
         resp = await client.get("/api/v1/outfits?tags=work,rain", headers=auth_headers)
         assert [o["id"] for o in resp.json()["outfits"]] == [str(work_rain.id)]
 
+    @pytest.mark.asyncio
+    async def test_avoid_filter_shows_or_hides_dont_wear_examples(
+        self, client: AsyncClient, db_session, test_user, auth_headers
+    ):
+        avoid = await _outfit(db_session, test_user, tags=["casual", "avoid"])
+        keep = await _outfit(db_session, test_user, tags=["casual"])
+
+        resp = await client.get("/api/v1/outfits?avoid=true", headers=auth_headers)
+        assert [o["id"] for o in resp.json()["outfits"]] == [str(avoid.id)]
+        resp = await client.get("/api/v1/outfits?avoid=false", headers=auth_headers)
+        assert [o["id"] for o in resp.json()["outfits"]] == [str(keep.id)]
+        resp = await client.get("/api/v1/outfits", headers=auth_headers)
+        assert resp.json()["total"] == 2
+
+    @pytest.mark.asyncio
+    async def test_avoid_is_a_valid_tag(
+        self, client: AsyncClient, db_session, test_user, auth_headers
+    ):
+        outfit = await _outfit(db_session, test_user)
+        resp = await client.patch(
+            f"/api/v1/outfits/{outfit.id}", json={"tags": ["avoid", "work"]}, headers=auth_headers
+        )
+        assert resp.status_code == 200, resp.text
+        assert resp.json()["tags"] == ["work", "avoid"]
+
 
 class TestOutfitPhoto:
     @pytest.mark.asyncio

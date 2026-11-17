@@ -11,7 +11,6 @@ import {
   Sparkles,
 } from 'lucide-react';
 
-import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { cn, formatRelativeDate } from '@/lib/utils';
@@ -130,7 +129,7 @@ export function OutfitCard({ outfit, onClick, selectMode, selected, onSelect }: 
       onClick={handleCardClick}
     >
       <CardContent className="p-0">
-        <div className="relative aspect-[5/4] bg-muted">
+        <div className="relative aspect-[3/4] max-h-[calc(50dvh-9rem)] w-full bg-muted">
           {selectMode && (
             <div
               className="absolute top-2 left-2 z-10"
@@ -148,12 +147,12 @@ export function OutfitCard({ outfit, onClick, selectMode, selected, onSelect }: 
               src={(outfit.photo_thumbnail_url || outfit.photo_url)!}
               alt={getTitle(outfit)}
               fill
-              className="object-cover"
-              sizes="(max-width: 640px) 50vw, 25vw"
+              className="object-contain"
+              sizes="(max-width: 768px) 50vw, 25vw"
               loading="lazy"
             />
           ) : (
-          <div className="absolute inset-0 grid grid-cols-4 gap-0.5 p-2">
+          <div className="absolute inset-0 grid grid-cols-2 gap-0.5 p-2">
             {visibleItems.map((item, idx) => (
               <div
                 key={`${item.id}-${idx}`}
@@ -198,31 +197,16 @@ export function OutfitCard({ outfit, onClick, selectMode, selected, onSelect }: 
             </div>
           )}
         </div>
-        <div className="p-3 space-y-1">
+        <div className="p-2 space-y-0.5">
           <h3 className="text-sm font-semibold leading-tight truncate">
             {getTitle(outfit)}
           </h3>
-          <div className="flex items-center justify-between text-xs text-muted-foreground">
-            <Badge variant="outline" className="capitalize">
-              {occasionLabel(outfit.occasion)}
-            </Badge>
-            <span>{getMetaLabel(outfit, t, locale, getUserToday())}</span>
-          </div>
-          {outfit.tags?.length > 0 && (
-            <div className="flex flex-wrap gap-1 pt-1">
-              {outfit.tags.slice(0, 4).map((tag) => (
-                <span
-                  key={tag}
-                  className="rounded-full bg-muted px-2 py-0.5 text-[10px] font-medium text-muted-foreground"
-                >
-                  {tagLabel(tag)}
-                </span>
-              ))}
-              {outfit.tags.length > 4 && (
-                <span className="text-[10px] text-muted-foreground">+{outfit.tags.length - 4}</span>
-              )}
-            </div>
-          )}
+          <p className="text-[11px] text-muted-foreground truncate">
+            {[occasionLabel(outfit.occasion), ...(outfit.tags ?? []).map(tagLabel)].join(' · ')}
+          </p>
+          <p className="text-[11px] text-muted-foreground truncate">
+            {getMetaLabel(outfit, t, locale, getUserToday())}
+          </p>
         </div>
       </CardContent>
     </Card>

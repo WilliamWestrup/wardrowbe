@@ -91,6 +91,9 @@
     "pairing": "Pairing",
     "scheduled": "Scheduled"
   },
+  "outfitTags": {
+    "avoid": "Don't wear"
+  },
   "patterns": {
     "animal-print": "Animal Print",
     "camouflage": "Camouflage",

@@ -31,7 +31,9 @@ export function OutfitSituations({ outfit }: { outfit: Outfit }) {
   const tagLabel = useOutfitTagLabel();
   const patch = usePatchOutfit();
   const selected = outfit.tags ?? [];
-  const options = [...OUTFIT_TAG_OPTIONS, ...selected.filter((tag) => !OUTFIT_TAG_OPTIONS.includes(tag))];
+  // 'avoid' marks a "don't wear" example; offered here but kept out of the situation filter.
+  const editable = [...OUTFIT_TAG_OPTIONS, 'avoid'];
+  const options = [...editable, ...selected.filter((tag) => !editable.includes(tag))];
 
   const toggle = async (tag: string) => {
     const next = selected.includes(tag) ? selected.filter((s) => s !== tag) : [...selected, tag];

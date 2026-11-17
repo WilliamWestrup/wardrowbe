@@ -91,6 +91,9 @@
     "pairing": "搭配",
     "scheduled": "定时推送"
   },
+  "outfitTags": {
+    "avoid": "不要这样穿"
+  },
   "patterns": {
     "animal-print": "动物纹",
     "camouflage": "迷彩",

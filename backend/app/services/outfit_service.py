@@ -19,6 +19,7 @@ from app.models.outfit import (
     UserFeedback,
 )
 from app.models.user import User
+from app.schemas.outfit import AVOID_TAG
 
 
 @dataclass
@@ -39,6 +40,8 @@ class OutfitListFilters:
     occasions: list[str] | None = None
     cloned_from_outfit_id: UUID | None = None
     tags: list[str] | None = None
+    # True keeps only "don't wear" examples, False hides them, None keeps both.
+    avoid: bool | None = None
 
 
 E = TypeVar("E", bound=StrEnum)
@@ -110,6 +113,10 @@ class OutfitService:
             clauses.append(Outfit.occasion == filters.occasion)
         if filters.tags:
             clauses.append(Outfit.tags.contains(filters.tags))
+        if filters.avoid is True:
+            clauses.append(Outfit.tags.contains([AVOID_TAG]))
+        elif filters.avoid is False:
+            clauses.append(~Outfit.tags.contains([AVOID_TAG]))
 
         if filters.date_from:
             clauses.append(Outfit.scheduled_for >= filters.date_from)

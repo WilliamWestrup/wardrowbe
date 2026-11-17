@@ -658,6 +658,9 @@ async def list_outfits(
     tags: str | None = Query(
         None, max_length=500, description="Comma-separated situation tags; matches all of them"
     ),
+    avoid: bool | None = Query(
+        None, description="true for 'don't wear' examples only, false to hide them"
+    ),
 ) -> OutfitListResponse:
     service = OutfitService(db)
 
@@ -684,6 +687,7 @@ async def list_outfits(
         else None,
         cloned_from_outfit_id=cloned_from_outfit_id,
         tags=[t.strip().lower() for t in tags.split(",") if t.strip()] if tags else None,
+        avoid=avoid,
     )
 
     outfits, total = await service.list_with_filters(filters, pagination.page, pagination.page_size)

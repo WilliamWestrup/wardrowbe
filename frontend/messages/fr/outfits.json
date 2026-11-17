@@ -100,6 +100,7 @@
   "filters": {
     "ai": "IA",
     "all": "Toutes",
+    "avoid": "À ne pas porter",
     "lookbook": "Lookbook",
     "pairings": "Associations",
     "replacements": "Remplacements",

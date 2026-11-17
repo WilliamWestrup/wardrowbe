@@ -47,6 +47,7 @@ export interface OutfitFilters {
   occasions?: string[];
   cloned_from_outfit_id?: string;
   tags?: string[];
+  avoid?: boolean;
 }
 
 export interface FeedbackData {
@@ -100,6 +101,7 @@ function outfitListParams(filters: OutfitFilters, page: number, pageSize: number
   if (filters.cloned_from_outfit_id)
     params.cloned_from_outfit_id = filters.cloned_from_outfit_id;
   if (filters.tags?.length) params.tags = filters.tags.join(',');
+  if (filters.avoid !== undefined) params.avoid = String(filters.avoid);
 
   return params;
 }
