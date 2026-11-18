@@ -48,6 +48,8 @@ export interface OutfitFilters {
   cloned_from_outfit_id?: string;
   tags?: string[];
   avoid?: boolean;
+  // Outfits that use this item, as an item or as an alternate
+  item_id?: string;
 }
 
 export interface FeedbackData {
@@ -102,6 +104,7 @@ function outfitListParams(filters: OutfitFilters, page: number, pageSize: number
     params.cloned_from_outfit_id = filters.cloned_from_outfit_id;
   if (filters.tags?.length) params.tags = filters.tags.join(',');
   if (filters.avoid !== undefined) params.avoid = String(filters.avoid);
+  if (filters.item_id) params.item_id = filters.item_id;
 
   return params;
 }

@@ -95,6 +95,7 @@ import {
 } from '@/lib/tag-edits';
 import { useAiUiEnabled, useFeatures } from '@/lib/hooks/use-features';
 import { useLocale, useTranslations } from 'next-intl';
+import { ItemOutfits } from '@/components/outfits/item-outfits';
 import { formatDate } from '@/lib/utils';
 
 interface ItemDetailDialogProps {
@@ -1076,6 +1077,8 @@ export function ItemDetailDialog({ item, open, onOpenChange }: ItemDetailDialogP
                       )}
                     </div>
                   )}
+
+                  <ItemOutfits itemId={item.id} />
 
                   {/* AI Analysis */}
                   {(hasAiTags || item.ai_description) && item.status === 'ready' && (

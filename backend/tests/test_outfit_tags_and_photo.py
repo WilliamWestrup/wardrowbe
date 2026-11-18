@@ -218,3 +218,146 @@ class TestBulkDeleteByTag:
             for o in (await client.get("/api/v1/outfits", headers=auth_headers)).json()["outfits"]
         ]
         assert str(keep.id) in ids and str(work.id) not in ids
+
+
+async def _template(db: AsyncSession, user: User) -> tuple[Outfit, list[ClothingItem]]:
+    """An undated outfit (lookbook template) with a shirt, pants and shoes, plus two spare shoes."""
+    items = [
+        ClothingItem(
+            user_id=user.id, type=t, image_path=f"test/{uuid4()}.jpg", status=ItemStatus.ready
+        )
+        for t in ("shirt", "pants", "shoes", "shoes", "shoes")
+    ]
+    db.add_all(items)
+    await db.flush()
+    outfit = Outfit(
+        user_id=user.id,
+        occasion="work",
+        scheduled_for=None,
+        status=OutfitStatus.pending,
+        source=OutfitSource.manual,
+    )
+    for pos, item in enumerate(items[:3]):
+        outfit.items.append(OutfitItem(item_id=item.id, position=pos))
+    db.add(outfit)
+    await db.commit()
+    return outfit, items
+
+
+class TestOutfitAlternates:
+    @pytest.mark.asyncio
+    async def test_patch_sets_alternates_and_response_lists_them(
+        self, client: AsyncClient, db_session, test_user, auth_headers
+    ):
+        outfit, items = await _template(db_session, test_user)
+        shoes, alt1, alt2 = items[2], items[3], items[4]
+        resp = await client.patch(
+            f"/api/v1/outfits/{outfit.id}",
+            json={"alternates": {str(shoes.id): [str(alt1.id), str(alt2.id), str(alt1.id)]}},
+            headers=auth_headers,
+        )
+        assert resp.status_code == 200, resp.text
+        by_id = {i["id"]: i for i in resp.json()["items"]}
+        assert [a["id"] for a in by_id[str(shoes.id)]["alternates"]] == [str(alt1.id), str(alt2.id)]
+        assert by_id[str(items[0].id)]["alternates"] == []
+
+        resp = await client.patch(
+            f"/api/v1/outfits/{outfit.id}", json={"alternates": {}}, headers=auth_headers
+        )
+        assert all(i["alternates"] == [] for i in resp.json()["items"])
+
+    @pytest.mark.asyncio
+    async def test_alternate_must_be_outside_the_outfit_and_key_inside(
+        self, client: AsyncClient, db_session, test_user, auth_headers
+    ):
+        outfit, items = await _template(db_session, test_user)
+        url = f"/api/v1/outfits/{outfit.id}"
+        inside = {"alternates": {str(items[2].id): [str(items[0].id)]}}
+        assert (await client.patch(url, json=inside, headers=auth_headers)).status_code == 400
+        not_an_item = {"alternates": {str(items[3].id): [str(items[4].id)]}}
+        assert (await client.patch(url, json=not_an_item, headers=auth_headers)).status_code == 400
+
+    @pytest.mark.asyncio
+    async def test_replacing_items_drops_alternates_of_removed_items(
+        self, client: AsyncClient, db_session, test_user, auth_headers
+    ):
+        outfit, items = await _template(db_session, test_user)
+        url = f"/api/v1/outfits/{outfit.id}"
+        await client.patch(
+            url,
+            json={
+                "alternates": {
+                    str(items[2].id): [str(items[3].id)],
+                    str(items[1].id): [str(items[4].id)],
+                }
+            },
+            headers=auth_headers,
+        )
+        # Swap the shoes for their alternate: the shoes' alternates go, the pants' stay
+        resp = await client.patch(
+            url,
+            json={"items": [str(items[0].id), str(items[1].id), str(items[3].id)]},
+            headers=auth_headers,
+        )
+        assert resp.status_code == 200, resp.text
+        by_id = {i["id"]: i for i in resp.json()["items"]}
+        assert [a["id"] for a in by_id[str(items[1].id)]["alternates"]] == [str(items[4].id)]
+        assert by_id[str(items[3].id)]["alternates"] == []
+
+    @pytest.mark.asyncio
+    async def test_wear_today_wears_the_chosen_alternate(
+        self, client: AsyncClient, db_session, test_user, auth_headers
+    ):
+        outfit, items = await _template(db_session, test_user)
+        shoes, alt = items[2], items[3]
+        await client.patch(
+            f"/api/v1/outfits/{outfit.id}",
+            json={"alternates": {str(shoes.id): [str(alt.id)]}},
+            headers=auth_headers,
+        )
+        resp = await client.post(
+            f"/api/v1/outfits/{outfit.id}/wear-today",
+            json={"swaps": {str(shoes.id): str(alt.id)}},
+            headers=auth_headers,
+        )
+        assert resp.status_code == 200, resp.text
+        worn_ids = {i["id"] for i in resp.json()["items"]}
+        assert str(alt.id) in worn_ids and str(shoes.id) not in worn_ids
+        await db_session.refresh(alt)
+        await db_session.refresh(shoes)
+        assert alt.wear_count == 1 and shoes.wear_count == 0
+
+    @pytest.mark.asyncio
+    async def test_wear_today_rejects_a_swap_that_is_not_an_alternate(
+        self, client: AsyncClient, db_session, test_user, auth_headers
+    ):
+        outfit, items = await _template(db_session, test_user)
+        resp = await client.post(
+            f"/api/v1/outfits/{outfit.id}/wear-today",
+            json={"swaps": {str(items[2].id): str(items[4].id)}},
+            headers=auth_headers,
+        )
+        assert resp.status_code == 400
+
+    @pytest.mark.asyncio
+    async def test_list_filters_by_item_including_alternates(
+        self, client: AsyncClient, db_session, test_user, auth_headers
+    ):
+        outfit, items = await _template(db_session, test_user)
+        other = await _outfit(db_session, test_user)
+        await client.patch(
+            f"/api/v1/outfits/{outfit.id}",
+            json={"alternates": {str(items[2].id): [str(items[3].id)]}},
+            headers=auth_headers,
+        )
+        for item, expected in (
+            (items[0], {str(outfit.id)}),
+            (items[3], {str(outfit.id)}),
+            (items[4], set()),
+        ):
+            resp = await client.get(
+                "/api/v1/outfits", params={"item_id": str(item.id)}, headers=auth_headers
+            )
+            assert resp.status_code == 200, resp.text
+            assert {o["id"] for o in resp.json()["outfits"]} == expected
+        assert other.id

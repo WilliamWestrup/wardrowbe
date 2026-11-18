@@ -135,6 +135,13 @@ class Outfit(Base):
     family_ratings: Mapped[list["FamilyOutfitRating"]] = relationship(
         "FamilyOutfitRating", back_populates="outfit", cascade="all, delete-orphan"
     )
+    alternates: Mapped[list["OutfitItemAlternate"]] = relationship(
+        "OutfitItemAlternate",
+        back_populates="outfit",
+        cascade="all, delete-orphan",
+        lazy="selectin",
+        order_by="OutfitItemAlternate.position",
+    )
     source_item: Mapped[Optional["ClothingItem"]] = relationship(
         "ClothingItem", foreign_keys=[source_item_id]
     )
@@ -167,6 +174,29 @@ class OutfitItem(Base):
     # Relationships
     outfit: Mapped["Outfit"] = relationship("Outfit", back_populates="items")
     item: Mapped["ClothingItem"] = relationship("ClothingItem")
+
+
+class OutfitItemAlternate(Base):
+    """An item that can stand in for one of the outfit's items (another pair of shoes, say),
+    so one outfit covers several variations. Wearing the outfit asks which one was worn."""
+
+    __tablename__ = "outfit_item_alternates"
+
+    outfit_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("outfits.id", ondelete="CASCADE"), primary_key=True
+    )
+    item_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("clothing_items.id", ondelete="CASCADE"), primary_key=True
+    )
+    alternate_item_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("clothing_items.id", ondelete="CASCADE"), primary_key=True
+    )
+    position: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+
+    outfit: Mapped["Outfit"] = relationship("Outfit", back_populates="alternates")
+    alternate_item: Mapped["ClothingItem"] = relationship(
+        "ClothingItem", foreign_keys=[alternate_item_id], lazy="selectin"
+    )
 
 
 class UserFeedback(Base):

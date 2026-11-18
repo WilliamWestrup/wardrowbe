@@ -1,4 +1,15 @@
 {
+  "alternates": {
+    "or": "o",
+    "edit": "Alternative",
+    "title": "Alternative per {item}",
+    "description": "Capi che puoi indossare al suo posto. Quando indossi questo outfit, scegli quale hai indossato.",
+    "saved": "Alternative salvate",
+    "saveError": "Impossibile salvare le alternative",
+    "wearTitle": "Quale hai indossato?",
+    "wearDescription": "Questo outfit ha alternative. Scegli cosa hai indossato per contare i capi giusti.",
+    "wearConfirm": "Indossa oggi"
+  },
   "bulkActions": {
     "deleteError": "Eliminazione outfit fallita",
     "deletePartialFailed": "Impossibile eliminare {count, plural, one {# outfit} other {# outfit}}",
@@ -105,6 +116,11 @@
     "pairings": "Abbinamenti",
     "replacements": "Sostituzioni",
     "worn": "Indossati"
+  },
+  "itemOutfits": {
+    "title": "Outfit ({count})",
+    "empty": "Nessun outfit usa ancora questo capo.",
+    "asAlternate": "alternativa"
   },
   "itemPicker": {
     "loadingMore": "Caricamento altro...",

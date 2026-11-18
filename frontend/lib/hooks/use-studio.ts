@@ -72,7 +72,8 @@ export function useWearToday(templateId: string) {
   const qc = useQueryClient();
   useSetTokenIfAvailable();
   return useMutation({
-    mutationFn: (payload: { scheduled_for?: string | null }) =>
+    // swaps: outfit item id -> the alternate worn in its place
+    mutationFn: (payload: { scheduled_for?: string | null; swaps?: Record<string, string> }) =>
       api.post<Outfit>(`/outfits/${templateId}/wear-today`, payload),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: queryKeys.outfits.all });
@@ -86,6 +87,8 @@ export interface PatchOutfitPayload {
   name?: string;
   items?: string[];
   tags?: string[];
+  // Outfit item id -> items that can be worn in its place; replaces every alternate
+  alternates?: Record<string, string[]>;
 }
 
 export function usePatchOutfit() {

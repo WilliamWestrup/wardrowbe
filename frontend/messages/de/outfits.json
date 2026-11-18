@@ -1,4 +1,15 @@
 {
+  "alternates": {
+    "or": "oder",
+    "edit": "Alternativen",
+    "title": "Alternativen für {item}",
+    "description": "Teile, die du stattdessen tragen kannst. Beim Tragen des Outfits wählst du, welches du getragen hast.",
+    "saved": "Alternativen gespeichert",
+    "saveError": "Alternativen konnten nicht gespeichert werden",
+    "wearTitle": "Was hast du getragen?",
+    "wearDescription": "Dieses Outfit hat Alternativen. Wähle, was du getragen hast, damit die richtigen Teile gezählt werden.",
+    "wearConfirm": "Heute tragen"
+  },
   "bulkActions": {
     "deleteError": "Outfits konnten nicht gelöscht werden",
     "deletePartialFailed": "{count, plural, one {# Outfit konnte nicht gelöscht werden} other {# Outfits konnten nicht gelöscht werden}}",
@@ -105,6 +116,11 @@
     "pairings": "Kombinationen",
     "replacements": "Ersatz",
     "worn": "Getragen"
+  },
+  "itemOutfits": {
+    "title": "Outfits ({count})",
+    "empty": "Noch kein Outfit nutzt dieses Teil.",
+    "asAlternate": "Alternative"
   },
   "itemPicker": {
     "loadingMore": "Mehr wird geladen...",

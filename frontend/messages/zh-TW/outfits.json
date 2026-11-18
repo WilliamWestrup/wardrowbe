@@ -1,4 +1,15 @@
 {
+  "alternates": {
+    "or": "或",
+    "edit": "替代單品",
+    "title": "{item} 的替代單品",
+    "description": "可以代替它穿的單品。穿這套搭配時，你可以選擇實際穿了哪一件。",
+    "saved": "替代單品已儲存",
+    "saveError": "儲存替代單品失敗",
+    "wearTitle": "你穿了哪一件？",
+    "wearDescription": "這套搭配有替代單品。選擇你實際穿的，讓穿著紀錄記在正確的單品上。",
+    "wearConfirm": "今天穿"
+  },
   "bulkActions": {
     "deleteError": "刪除穿搭失敗",
     "deletePartialFailed": "刪除 {count, plural, one {# 套穿搭} other {# 套穿搭}} 失敗",
@@ -105,6 +116,11 @@
     "pairings": "搭配",
     "replacements": "替換",
     "worn": "已穿過"
+  },
+  "itemOutfits": {
+    "title": "搭配 ({count})",
+    "empty": "還沒有搭配使用這件單品。",
+    "asAlternate": "替代"
   },
   "itemPicker": {
     "loadingMore": "載入更多...",

@@ -6,6 +6,7 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, File, HTTPException, Query, UploadFile, status
 from pydantic import BaseModel, ConfigDict, Field, ValidationInfo, computed_field, field_validator
 from sqlalchemy import and_, select
+from sqlalchemy import inspect as sa_inspect
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
@@ -43,6 +44,7 @@ from app.services.recommendation_service import (
     RecommendationService,
 )
 from app.services.studio_service import (
+    InvalidAlternateError,
     ItemOwnershipError,
     OutfitNotTemplateError,
     OutfitWornImmutableError,
@@ -103,6 +105,24 @@ class SuggestRequest(BaseModel):
     include_items: list[UUID] = Field(default_factory=list, description="Items to include")
 
 
+class OutfitAlternateResponse(BaseModel):
+    id: UUID
+    type: str
+    name: str | None = None
+    image_path: str | None = None
+    thumbnail_path: str | None = None
+
+    @computed_field
+    @property
+    def image_url(self) -> str | None:
+        return sign_optional(self.image_path)
+
+    @computed_field
+    @property
+    def thumbnail_url(self) -> str | None:
+        return sign_optional(self.thumbnail_path)
+
+
 class OutfitItemResponse(BaseModel):
     id: UUID
     type: str
@@ -114,6 +134,8 @@ class OutfitItemResponse(BaseModel):
     thumbnail_path: str | None = None
     layer_type: str | None = None
     position: int
+    # Items that can be worn in this one's place
+    alternates: list[OutfitAlternateResponse] = Field(default_factory=list)
 
     @computed_field
     @property
@@ -226,6 +248,8 @@ class BulkOutfitFilters(BaseModel):
     occasions: Annotated[list[str] | None, Field(max_length=MAX_SEARCH_OCCASIONS)] = None
     tags: Annotated[list[str] | None, Field(max_length=MAX_OUTFIT_TAGS)] = None
     cloned_from_outfit_id: UUID | None = None
+    avoid: bool | None = None
+    item_id: UUID | None = None
 
     @field_validator("status", "source")
     @classmethod
@@ -365,6 +389,21 @@ def outfit_to_response(
     wore_instead_items_map: dict[str, list[WoreInsteadItem]] | None = None,
     is_starter_suggestion: bool = False,
 ) -> OutfitResponse:
+    alternates_by_item: dict[UUID, list[OutfitAlternateResponse]] = {}
+    # An outfit built in this request (an AI suggestion) has none and must not lazy-load them
+    loaded_alternates = [] if "alternates" in sa_inspect(outfit).unloaded else outfit.alternates
+    for alt in loaded_alternates:
+        a = alt.alternate_item
+        alternates_by_item.setdefault(alt.item_id, []).append(
+            OutfitAlternateResponse(
+                id=a.id,
+                type=a.type,
+                name=a.name,
+                image_path=a.image_path,
+                thumbnail_path=a.thumbnail_path,
+            )
+        )
+
     items = []
     for outfit_item in sorted(outfit.items, key=lambda x: x.position):
         item = outfit_item.item
@@ -380,6 +419,7 @@ def outfit_to_response(
                 thumbnail_path=item.thumbnail_path,
                 layer_type=outfit_item.layer_type,
                 position=outfit_item.position,
+                alternates=alternates_by_item.get(item.id, []),
             )
         )
 
@@ -661,6 +701,9 @@ async def list_outfits(
     avoid: bool | None = Query(
         None, description="true for 'don't wear' examples only, false to hide them"
     ),
+    item_id: UUID | None = Query(
+        None, description="Outfits that use this item, as an item or as an alternate"
+    ),
 ) -> OutfitListResponse:
     service = OutfitService(db)
 
@@ -688,6 +731,7 @@ async def list_outfits(
         cloned_from_outfit_id=cloned_from_outfit_id,
         tags=[t.strip().lower() for t in tags.split(",") if t.strip()] if tags else None,
         avoid=avoid,
+        item_id=item_id,
     )
 
     outfits, total = await service.list_with_filters(filters, pagination.page, pagination.page_size)
@@ -1240,6 +1284,11 @@ class WearTodayRequest(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     scheduled_for: date | None = None
+    # Outfit item id -> the alternate actually worn in its place
+    swaps: Annotated[dict[UUID, UUID], Field(max_length=20)] = Field(default_factory=dict)
+
+
+MAX_ALTERNATES_PER_ITEM = 6
 
 
 class PatchOutfitRequest(BaseModel):
@@ -1248,6 +1297,11 @@ class PatchOutfitRequest(BaseModel):
     name: Annotated[str | None, Field(max_length=100)] = None
     items: Annotated[list[UUID] | None, Field(min_length=1, max_length=20)] = None
     tags: OutfitTags | None = None
+    # Outfit item id -> items that can be worn in its place; replaces every alternate
+    alternates: Annotated[
+        dict[UUID, Annotated[list[UUID], Field(max_length=MAX_ALTERNATES_PER_ITEM)]] | None,
+        Field(max_length=20),
+    ] = None
 
 
 async def _run_learning_safely(db: AsyncSession, outfit_id: UUID, user_id: UUID) -> None:
@@ -1392,7 +1446,13 @@ async def wear_outfit_today(
             user=current_user,
             template_id=outfit_id,
             scheduled_for=request.scheduled_for,
+            swaps=request.swaps,
         )
+    except InvalidAlternateError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail={"error_code": "OUTFIT_INVALID_SWAP", "message": str(e)},
+        ) from None
     except LookupError:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -1427,7 +1487,12 @@ async def patch_outfit_endpoint(
         str(current_user.id), "patch_outfit", max_requests=30, window_seconds=60
     )
 
-    if request.name is None and request.items is None and request.tags is None:
+    if (
+        request.name is None
+        and request.items is None
+        and request.tags is None
+        and request.alternates is None
+    ):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail={"error_code": "PATCH_EMPTY", "message": "No fields provided"},
@@ -1441,7 +1506,13 @@ async def patch_outfit_endpoint(
             name=request.name,
             items=request.items,
             tags=request.tags,
+            alternates=request.alternates,
         )
+    except InvalidAlternateError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail={"error_code": "OUTFIT_INVALID_ALTERNATE", "message": str(e)},
+        ) from None
     except LookupError:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,

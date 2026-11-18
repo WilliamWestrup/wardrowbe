@@ -1,4 +1,15 @@
 {
+  "alternates": {
+    "or": "또는",
+    "edit": "대체 아이템",
+    "title": "{item} 대체 아이템",
+    "description": "대신 입을 수 있는 아이템입니다. 이 코디를 입을 때 실제로 입은 것을 고릅니다.",
+    "saved": "대체 아이템을 저장했습니다",
+    "saveError": "대체 아이템을 저장하지 못했습니다",
+    "wearTitle": "어떤 것을 입었나요?",
+    "wearDescription": "이 코디에는 대체 아이템이 있습니다. 올바른 아이템에 착용이 기록되도록 입은 것을 고르세요.",
+    "wearConfirm": "오늘 입기"
+  },
   "bulkActions": {
     "deleteError": "코디 삭제 실패",
     "deletePartialFailed": "{count, plural, other {코디 #개 삭제 실패}}",
@@ -105,6 +116,11 @@
     "pairings": "페어링",
     "replacements": "대체",
     "worn": "착용함"
+  },
+  "itemOutfits": {
+    "title": "코디 ({count})",
+    "empty": "아직 이 아이템을 쓰는 코디가 없습니다.",
+    "asAlternate": "대체"
   },
   "itemPicker": {
     "loadingMore": "더 불러오는 중...",

@@ -290,6 +290,16 @@ export interface OutfitItem {
   thumbnail_url: string | null;
   layer_type: string | null;
   position: number;
+  // Items that can be worn in this one's place
+  alternates?: OutfitAlternate[];
+}
+
+export interface OutfitAlternate {
+  id: string;
+  type: string;
+  name: string | null;
+  image_url: string | null;
+  thumbnail_url: string | null;
 }
 
 export interface WeatherData {

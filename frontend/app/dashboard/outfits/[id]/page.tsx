@@ -11,6 +11,7 @@ import {
   ChevronLeft,
   Loader2,
   Pencil,
+  Repeat,
   Star,
   Trash2,
 } from 'lucide-react';
@@ -26,7 +27,8 @@ import { LineageCard } from '@/components/shared/lineage-card';
 import { CloneToLookbookDialog } from '@/components/shared/clone-to-lookbook-dialog';
 import { OutfitPhoto } from '@/components/outfits/outfit-photo';
 import { OutfitSituations } from '@/components/outfits/outfit-situations';
-import { useDeleteOutfit, useOutfit, useOutfits } from '@/lib/hooks/use-outfits';
+import { AlternatesDialog, WearChoiceDialog } from '@/components/outfits/outfit-alternates';
+import { useDeleteOutfit, useOutfit, useOutfits, type OutfitItem } from '@/lib/hooks/use-outfits';
 import { useWearToday } from '@/lib/hooks/use-studio';
 import { useUserToday } from '@/lib/hooks/use-user';
 import { useOutfitTitle } from '@/lib/hooks/use-outfit-title';
@@ -51,6 +53,8 @@ export default function OutfitDetailPage() {
   const getUserToday = useUserToday();
 
   const [cloneDialogOpen, setCloneDialogOpen] = useState(false);
+  const [alternatesFor, setAlternatesFor] = useState<OutfitItem | null>(null);
+  const [wearChoiceOpen, setWearChoiceOpen] = useState(false);
 
   const isTemplate =
     outfit !== undefined && outfit !== null && outfit.scheduled_for === null;
@@ -71,15 +75,20 @@ export default function OutfitDetailPage() {
     );
   }
 
-  const handleWearToday = async () => {
+  const hasAlternates = outfit.items.some((i) => i.alternates?.length);
+
+  const wearToday = async (swaps: Record<string, string> = {}) => {
     try {
-      const result = await wearTodayMutation.mutateAsync({ scheduled_for: getUserToday() });
+      const result = await wearTodayMutation.mutateAsync({ scheduled_for: getUserToday(), swaps });
       toast.success(t('detail.addedToToday'));
       router.push(`/dashboard/outfits/${result.id}`);
     } catch (error) {
       toast.error(getErrorMessage(error, t('detail.wearTodayError')));
     }
   };
+
+  // With alternates, ask which option was worn first
+  const handleWearToday = () => (hasAlternates ? setWearChoiceOpen(true) : wearToday());
 
   const handleDelete = async () => {
     if (!confirm(t('detail.deleteConfirm'))) return;
@@ -167,8 +176,8 @@ export default function OutfitDetailPage() {
           </h2>
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3">
             {outfit.items.map((item) => (
+              <div key={item.id}>
               <Link
-                key={item.id}
                 href={`/dashboard/wardrobe?item=${item.id}`}
                 className="group"
               >
@@ -193,6 +202,40 @@ export default function OutfitDetailPage() {
                   {item.name || typeLabel(item.type)}
                 </p>
               </Link>
+              {item.alternates && item.alternates.length > 0 && (
+                <div className="mt-1 flex items-center gap-1 flex-wrap">
+                  <span className="text-[10px] text-muted-foreground">{t('alternates.or')}</span>
+                  {item.alternates.map((alt) => (
+                    <Link
+                      key={alt.id}
+                      href={`/dashboard/wardrobe?item=${alt.id}`}
+                      title={alt.name || typeLabel(alt.type)}
+                      className="relative w-7 h-7 rounded-md overflow-hidden border bg-muted"
+                    >
+                      {(alt.thumbnail_url || alt.image_url) && (
+                        <Image
+                          src={(alt.thumbnail_url || alt.image_url)!}
+                          alt={alt.name || typeLabel(alt.type)}
+                          fill
+                          className="object-cover"
+                          sizes="28px"
+                        />
+                      )}
+                    </Link>
+                  ))}
+                </div>
+              )}
+              {!isWorn && (
+                <button
+                  type="button"
+                  onClick={() => setAlternatesFor(item)}
+                  className="mt-1 flex items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground"
+                >
+                  <Repeat className="h-3 w-3" />
+                  {t('alternates.edit')}
+                </button>
+              )}
+              </div>
             ))}
           </div>
         </CardContent>
@@ -282,6 +325,22 @@ export default function OutfitDetailPage() {
             {t('detail.notWornYet')}
           </AlertDescription>
         </Alert>
+      )}
+
+      <AlternatesDialog
+        outfit={outfit}
+        item={alternatesFor}
+        onClose={() => setAlternatesFor(null)}
+      />
+
+      {isTemplate && hasAlternates && (
+        <WearChoiceDialog
+          outfit={outfit}
+          open={wearChoiceOpen}
+          pending={wearTodayMutation.isPending}
+          onClose={() => setWearChoiceOpen(false)}
+          onConfirm={(swaps) => wearToday(swaps)}
+        />
       )}
 
       {!isTemplate && (

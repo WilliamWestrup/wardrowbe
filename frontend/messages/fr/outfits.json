@@ -1,4 +1,15 @@
 {
+  "alternates": {
+    "or": "ou",
+    "edit": "Alternatives",
+    "title": "Alternatives pour {item}",
+    "description": "Pièces que vous pouvez porter à sa place. Quand vous portez cette tenue, vous choisissez laquelle vous avez portée.",
+    "saved": "Alternatives enregistrées",
+    "saveError": "Échec de l'enregistrement des alternatives",
+    "wearTitle": "Laquelle avez-vous portée ?",
+    "wearDescription": "Cette tenue a des alternatives. Choisissez ce que vous avez porté pour compter les bonnes pièces.",
+    "wearConfirm": "Porter aujourd'hui"
+  },
   "bulkActions": {
     "deleteError": "Échec de la suppression des tenues",
     "deletePartialFailed": "{count, plural, one {Échec de la suppression de # tenue} other {Échec de la suppression de # tenues}}",
@@ -105,6 +116,11 @@
     "pairings": "Associations",
     "replacements": "Remplacements",
     "worn": "Portées"
+  },
+  "itemOutfits": {
+    "title": "Tenues ({count})",
+    "empty": "Aucune tenue n'utilise encore cette pièce.",
+    "asAlternate": "alternative"
   },
   "itemPicker": {
     "loadingMore": "Chargement...",

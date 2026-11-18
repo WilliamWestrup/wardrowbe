@@ -1,4 +1,15 @@
 {
+  "alternates": {
+    "or": "or",
+    "edit": "Alternatives",
+    "title": "Alternatives for {item}",
+    "description": "Items you can wear in its place. When you wear this outfit, you pick which one you wore.",
+    "saved": "Alternatives saved",
+    "saveError": "Failed to save alternatives",
+    "wearTitle": "Which one did you wear?",
+    "wearDescription": "This outfit has alternatives. Pick what you wore so the right items get the wear.",
+    "wearConfirm": "Wear today"
+  },
   "bulkActions": {
     "deleteError": "Failed to delete outfits",
     "deletePartialFailed": "Failed to delete {count, plural, one {# outfit} other {# outfits}}",
@@ -105,6 +116,11 @@
     "pairings": "Pairings",
     "replacements": "Replacements",
     "worn": "Worn"
+  },
+  "itemOutfits": {
+    "title": "Outfits ({count})",
+    "empty": "No outfit uses this item yet.",
+    "asAlternate": "alternative"
   },
   "itemPicker": {
     "loadingMore": "Loading more...",

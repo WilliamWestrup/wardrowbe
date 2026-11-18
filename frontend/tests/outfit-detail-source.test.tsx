@@ -30,6 +30,7 @@ vi.mock('@/lib/hooks/use-outfits', () => ({
 }))
 vi.mock('@/lib/hooks/use-studio', () => ({
   useWearToday: () => ({ mutateAsync: vi.fn(), isPending: false }),
+  usePatchOutfit: () => ({ mutateAsync: vi.fn(), isPending: false }),
 }))
 vi.mock('@/lib/hooks/use-user', () => ({ useUserToday: () => () => '2026-10-05' }))
 vi.mock('@/components/shared/lineage-card', () => ({ LineageCard: () => null }))

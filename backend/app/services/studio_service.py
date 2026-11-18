@@ -12,6 +12,7 @@ from app.models.outfit import (
     FamilyOutfitRating,
     Outfit,
     OutfitItem,
+    OutfitItemAlternate,
     OutfitSource,
     OutfitStatus,
 )
@@ -31,6 +32,10 @@ class OutfitWornImmutableError(Exception):
 
 
 class OutfitNotTemplateError(Exception):
+    pass
+
+
+class InvalidAlternateError(ValueError):
     pass
 
 
@@ -295,7 +300,13 @@ class StudioService:
         await self.db.flush()
         return await self._reload_outfit(clone.id)
 
-    async def wear_today(self, user: User, template_id: UUID, scheduled_for: date | None) -> Outfit:
+    async def wear_today(
+        self,
+        user: User,
+        template_id: UUID,
+        scheduled_for: date | None,
+        swaps: dict[UUID, UUID] | None = None,
+    ) -> Outfit:
         result = await self.db.execute(
             select(Outfit)
             .where(and_(Outfit.id == template_id, Outfit.user_id == user.id))
@@ -307,6 +318,15 @@ class StudioService:
 
         if template.scheduled_for is not None:
             raise OutfitNotTemplateError("wear_today requires a lookbook template")
+
+        # Each swap must name one of the template's alternates for that item
+        swaps = swaps or {}
+        allowed = {(a.item_id, a.alternate_item_id) for a in template.alternates}
+        for item_id, alternate_id in swaps.items():
+            if (item_id, alternate_id) not in allowed:
+                raise InvalidAlternateError(
+                    f"{alternate_id} is not an alternate for {item_id} in this outfit"
+                )
 
         target_date = scheduled_for if scheduled_for is not None else get_user_today(user)
 
@@ -323,11 +343,14 @@ class StudioService:
         self.db.add(wear)
         await self.db.flush()
 
+        worn_item_ids = []
         for oi in sorted(template.items, key=lambda x: x.position):
+            worn_id = swaps.get(oi.item_id, oi.item_id)
+            worn_item_ids.append(worn_id)
             self.db.add(
                 OutfitItem(
                     outfit_id=wear.id,
-                    item_id=oi.item_id,
+                    item_id=worn_id,
                     position=oi.position,
                     layer_type=oi.layer_type,
                 )
@@ -340,7 +363,7 @@ class StudioService:
 
         await ItemService(self.db).record_wears(
             user.id,
-            [oi.item_id for oi in template.items],
+            worn_item_ids,
             target_date,
             occasion=wear.occasion,
             outfit_id=wear.id,
@@ -356,6 +379,7 @@ class StudioService:
         name: str | None,
         items: list[UUID] | None,
         tags: list[str] | None = None,
+        alternates: dict[UUID, list[UUID]] | None = None,
     ) -> Outfit:
         result = await self.db.execute(
             select(Outfit)
@@ -403,5 +427,52 @@ class StudioService:
                 await self.learning.process_item_diff(refreshed, removed_pairs=removed)
             outfit = refreshed
 
+            if alternates is None:
+                # Keep the alternates whose item is still in the outfit and that are not in it
+                alternates = {}
+                for alt in outfit.alternates:
+                    if alt.item_id in new_item_ids and alt.alternate_item_id not in new_item_ids:
+                        alternates.setdefault(alt.item_id, []).append(alt.alternate_item_id)
+
+        if alternates is not None:
+            await self._replace_alternates(user, outfit, alternates)
+
         await self.db.flush()
         return await self._reload_outfit(outfit.id)
+
+    async def _replace_alternates(
+        self, user: User, outfit: Outfit, alternates: dict[UUID, list[UUID]]
+    ) -> None:
+        if outfit.feedback is not None and outfit.feedback.worn_at is not None:
+            raise OutfitWornImmutableError("cannot modify alternates on a worn outfit")
+
+        outfit_item_ids = {oi.item_id for oi in outfit.items}
+        rows: list[tuple[UUID, UUID, int]] = []
+        for item_id, alternate_ids in alternates.items():
+            if item_id not in outfit_item_ids:
+                raise InvalidAlternateError(f"{item_id} is not an item of this outfit")
+            unique = list(dict.fromkeys(alternate_ids))
+            for alternate_id in unique:
+                if alternate_id in outfit_item_ids:
+                    raise InvalidAlternateError(f"{alternate_id} is already in this outfit")
+            rows.extend((item_id, alt, pos) for pos, alt in enumerate(unique))
+
+        alternate_ids = list({alt for _, alt, _ in rows})
+        if alternate_ids:
+            await validate_item_ownership(self.db, user.id, alternate_ids)
+
+        await self.db.execute(
+            sa_delete(OutfitItemAlternate).where(OutfitItemAlternate.outfit_id == outfit.id)
+        )
+        self.db.expire(outfit, attribute_names=["alternates"])
+        await self.db.flush()
+        for item_id, alternate_id, pos in rows:
+            self.db.add(
+                OutfitItemAlternate(
+                    outfit_id=outfit.id,
+                    item_id=item_id,
+                    alternate_item_id=alternate_id,
+                    position=pos,
+                )
+            )
+        await self.db.flush()

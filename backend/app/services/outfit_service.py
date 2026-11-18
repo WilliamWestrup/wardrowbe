@@ -14,6 +14,7 @@ from app.models.outfit import (
     FamilyOutfitRating,
     Outfit,
     OutfitItem,
+    OutfitItemAlternate,
     OutfitSource,
     OutfitStatus,
     UserFeedback,
@@ -42,6 +43,8 @@ class OutfitListFilters:
     tags: list[str] | None = None
     # True keeps only "don't wear" examples, False hides them, None keeps both.
     avoid: bool | None = None
+    # Outfits that use this item, directly or as an alternate
+    item_id: UUID | None = None
 
 
 E = TypeVar("E", bound=StrEnum)
@@ -172,6 +175,13 @@ class OutfitService:
 
         if filters.cloned_from_outfit_id is not None:
             clauses.append(Outfit.cloned_from_outfit_id == filters.cloned_from_outfit_id)
+        if filters.item_id is not None:
+            clauses.append(
+                or_(
+                    Outfit.items.any(OutfitItem.item_id == filters.item_id),
+                    Outfit.alternates.any(OutfitItemAlternate.alternate_item_id == filters.item_id),
+                )
+            )
 
         return clauses
 

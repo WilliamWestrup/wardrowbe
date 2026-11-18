@@ -1,4 +1,15 @@
 {
+  "alternates": {
+    "or": "または",
+    "edit": "代替アイテム",
+    "title": "{item} の代替アイテム",
+    "description": "代わりに着られるアイテムです。このコーデを着るときに、実際に着たものを選びます。",
+    "saved": "代替アイテムを保存しました",
+    "saveError": "代替アイテムを保存できませんでした",
+    "wearTitle": "どれを着ましたか？",
+    "wearDescription": "このコーデには代替アイテムがあります。正しいアイテムに着用を記録するため、着たものを選んでください。",
+    "wearConfirm": "今日着る"
+  },
   "bulkActions": {
     "deleteError": "コーデの削除に失敗しました",
     "deletePartialFailed": "{count, plural, one {# 件のコーデ} other {# 件のコーデ}}の削除に失敗しました",
@@ -105,6 +116,11 @@
     "pairings": "ペアリング",
     "replacements": "差し替え",
     "worn": "着用済み"
+  },
+  "itemOutfits": {
+    "title": "コーデ ({count})",
+    "empty": "このアイテムを使うコーデはまだありません。",
+    "asAlternate": "代替"
   },
   "itemPicker": {
     "loadingMore": "読み込み中...",

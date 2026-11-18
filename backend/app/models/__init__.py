@@ -9,7 +9,13 @@ from app.models.learning import (
     UserLearningProfile,
 )
 from app.models.notification import Notification, NotificationSettings
-from app.models.outfit import FamilyOutfitRating, Outfit, OutfitItem, UserFeedback
+from app.models.outfit import (
+    FamilyOutfitRating,
+    Outfit,
+    OutfitItem,
+    OutfitItemAlternate,
+    UserFeedback,
+)
 from app.models.preference import UserPreference
 from app.models.schedule import Schedule
 from app.models.shopping import DeclutterSuggestion, WardrobeGap
@@ -34,6 +40,7 @@ __all__ = [
     "FamilyOutfitRating",
     "Outfit",
     "OutfitItem",
+    "OutfitItemAlternate",
     "UserFeedback",
     "Notification",
     "InspirationLook",
